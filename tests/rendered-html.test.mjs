@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`http://localhost${pathname}`, {
       headers: { accept: "text/html" },
     }),
     {
@@ -36,6 +36,22 @@ test("server-renders the portfolio home page", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
+test("server-renders the experience design detail page", async () => {
+  const response = await render("/projects/experience");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /订单进行中页面体验优化/);
+  assert.match(html, /Ongoing Order Page Experience Optimization/);
+  assert.match(html, /项目概览/);
+  assert.match(html, /项目复盘/);
+
+  const detailPage = await readFile(new URL("../app/projects/experience/page.tsx", import.meta.url), "utf8");
+  assert.match(detailPage, /autoPlay/);
+  assert.match(detailPage, /loop/);
+  assert.match(detailPage, /muted/);
+});
+
 test("keeps the requested homepage interactions in the client source", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
@@ -54,4 +70,6 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(css, /\.site-header::before/);
   assert.match(css, /backdrop-filter:\s*blur\(18px\)/);
   assert.match(css, /project-card:hover/);
+  assert.match(css, /grid-template-columns:\s*220px minmax\(912px, 1572px\)/);
+  assert.match(css, /max-width:\s*1840px/);
 });

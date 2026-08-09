@@ -9,6 +9,7 @@ const projects = [
     image: "/assets/projects/ux.png",
     hoverImage: "/assets/projects/ux-hover.png",
     className: "project-ux",
+    detailHref: "/projects/experience",
   },
   {
     id: "project-ai",
@@ -16,6 +17,7 @@ const projects = [
     image: "/assets/projects/ai.png",
     hoverImage: "/assets/projects/ai-hover.png",
     className: "project-ai",
+    detailHref: null,
   },
   {
     id: "project-crm",
@@ -23,6 +25,7 @@ const projects = [
     image: "/assets/projects/crm.png",
     hoverImage: "/assets/projects/crm-hover.png",
     className: "project-crm",
+    detailHref: null,
   },
   {
     id: "project-ip",
@@ -30,6 +33,7 @@ const projects = [
     image: "/assets/projects/ip.png",
     hoverImage: "/assets/projects/ip-hover.png",
     className: "project-ip",
+    detailHref: null,
   },
 ];
 
@@ -127,7 +131,7 @@ export default function Home() {
               </a>
               <div className="project-nav-menu" aria-label="项目列表">
                 {projectMenu.map((project) => (
-                  <a key={project.id} href={`#${project.id}`}>
+                  <a key={project.id} href={project.detailHref ?? `#${project.id}`}>
                     <span>{project.id === "project-ai" ? "AIUX工作流" : project.label}</span>
                     <span aria-hidden="true">›</span>
                   </a>
@@ -221,10 +225,11 @@ export default function Home() {
           {projects.map((project) => (
             <a
               className={`project-card ${project.className}`}
-              href={`#${project.id}`}
+              href={project.detailHref ?? `#${project.id}`}
               id={project.id}
               key={project.id}
               onClick={(event) => {
+                if (project.detailHref) return;
                 event.preventDefault();
                 showToast(`${project.label}详情页将在下一阶段补充`);
               }}
