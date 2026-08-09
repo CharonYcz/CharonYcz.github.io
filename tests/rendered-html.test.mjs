@@ -52,6 +52,6 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(css, /\.site-header[\s\S]*?width:\s*100vw/);
   assert.match(css, /height:\s*76px/);
   assert.match(css, /\.site-header::before/);
-  assert.match(css, /backdrop-filter:\s*blur\(34px\)/);
+  assert.match(css, /backdrop-filter:\s*blur\(18px\)/);
   assert.match(css, /project-card:hover/);
 });
