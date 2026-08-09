@@ -693,6 +693,7 @@ img {
   height: 22px;
   place-items: center;
   font-size: 0;
+  transform: translateY(2px);
 }
 
 .detail-back span::before {

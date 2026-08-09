@@ -46,10 +46,24 @@ test("server-renders the experience design detail page", async () => {
   assert.match(html, /项目概览/);
   assert.match(html, /项目复盘/);
 
-  const detailPage = await readFile(new URL("../app/projects/experience/page.tsx", import.meta.url), "utf8");
+  const detailPage = await readFile(new URL("../app/projects/ProjectDetailTemplate.tsx", import.meta.url), "utf8");
   assert.match(detailPage, /autoPlay/);
   assert.match(detailPage, /loop/);
   assert.match(detailPage, /muted/);
+});
+
+test("server-renders the other project detail pages", async () => {
+  const cases = [
+    ["/projects/enterprise", "企业级业务系统整合与效率体验优化"],
+    ["/projects/ip", "IP改造赋能，全场景品牌价值渗透"],
+    ["/projects/ai-workflow", "搭建COZE智能体重塑语义"],
+  ];
+
+  for (const [pathname, title] of cases) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    assert.match(await response.text(), new RegExp(title));
+  }
 });
 
 test("keeps the requested homepage interactions in the client source", async () => {

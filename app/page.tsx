@@ -17,7 +17,7 @@ const projects = [
     image: "/assets/projects/ai.png",
     hoverImage: "/assets/projects/ai-hover.png",
     className: "project-ai",
-    detailHref: null,
+    detailHref: "/projects/ai-workflow",
   },
   {
     id: "project-crm",
@@ -25,7 +25,7 @@ const projects = [
     image: "/assets/projects/crm.png",
     hoverImage: "/assets/projects/crm-hover.png",
     className: "project-crm",
-    detailHref: null,
+    detailHref: "/projects/enterprise",
   },
   {
     id: "project-ip",
@@ -33,7 +33,7 @@ const projects = [
     image: "/assets/projects/ip.png",
     hoverImage: "/assets/projects/ip-hover.png",
     className: "project-ip",
-    detailHref: null,
+    detailHref: "/projects/ip",
   },
 ];
 
