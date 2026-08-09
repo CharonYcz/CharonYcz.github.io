@@ -48,6 +48,7 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(page, /mouse-scroll/);
   assert.match(css, /scroll-snap-type:\s*y mandatory/);
   assert.match(css, /min-width:\s*1180px/);
-  assert.match(css, /max-width:\s*1600px/);
+  assert.match(css, /max-width:\s*min\(1600px/);
+  assert.match(css, /\.site-header[\s\S]*?width:\s*100vw/);
   assert.match(css, /project-card:hover/);
 });

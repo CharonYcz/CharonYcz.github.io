@@ -99,52 +99,54 @@ export default function Home() {
   return (
     <main className="portfolio-shell">
       <header className="site-header">
-        <a className="identity-card" href="#cover" aria-label="岳崇政 CharonY，返回个人首页">
-          <span className="identity-avatar">
-            <img src="/assets/navigation/profile.png" alt="岳崇政头像" />
-          </span>
-          <span className="identity-copy">
-            <strong>岳崇政</strong>
-            <small>CharonY</small>
-          </span>
-        </a>
+        <div className="site-header-inner">
+          <a className="identity-card" href="#cover" aria-label="岳崇政 CharonY，返回个人首页">
+            <span className="identity-avatar">
+              <img src="/assets/navigation/profile.png" alt="岳崇政头像" />
+            </span>
+            <span className="identity-copy">
+              <strong>岳崇政</strong>
+              <small>CharonY</small>
+            </span>
+          </a>
 
-        <nav className="site-nav" aria-label="作品集导航">
-          <a className={`nav-link ${activeSection === "cover" ? "nav-link-active" : ""}`} href="#cover">
-            <NavIcon name="home" />
-            <span>个人首页</span>
-          </a>
-          <a className={`nav-link ${activeSection === "about" ? "nav-link-active" : ""}`} href="#about">
-            <NavIcon name="about" />
-            <span>能力一览</span>
-          </a>
-          <div className={`project-nav ${activeSection === "projects" ? "nav-link-active" : ""}`}>
-            <a className="nav-link project-nav-trigger" href="#projects">
-              <NavIcon name="projects" />
-              <span>项目目录</span>
-              <i className="nav-caret" aria-hidden="true" />
+          <nav className="site-nav" aria-label="作品集导航">
+            <a className={`nav-link ${activeSection === "cover" ? "nav-link-active" : ""}`} href="#cover">
+              <NavIcon name="home" />
+              <span>个人首页</span>
             </a>
-            <div className="project-nav-menu" aria-label="项目列表">
-              {projectMenu.map((project) => (
-                <a key={project.id} href={`#${project.id}`}>
-                  <span>{project.id === "project-ai" ? "AIUX工作流" : project.label}</span>
-                  <span aria-hidden="true">›</span>
-                </a>
-              ))}
+            <a className={`nav-link ${activeSection === "about" ? "nav-link-active" : ""}`} href="#about">
+              <NavIcon name="about" />
+              <span>能力一览</span>
+            </a>
+            <div className={`project-nav ${activeSection === "projects" ? "nav-link-active" : ""}`}>
+              <a className="nav-link project-nav-trigger" href="#projects">
+                <NavIcon name="projects" />
+                <span>项目目录</span>
+                <i className="nav-caret" aria-hidden="true" />
+              </a>
+              <div className="project-nav-menu" aria-label="项目列表">
+                {projectMenu.map((project) => (
+                  <a key={project.id} href={`#${project.id}`}>
+                    <span>{project.id === "project-ai" ? "AIUX工作流" : project.label}</span>
+                    <span aria-hidden="true">›</span>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-          <a
-            className="nav-link resume-link"
-            href="#resume"
-            onClick={(event) => {
-              event.preventDefault();
-              showToast("在线简历将在后续补充");
-            }}
-          >
-            <NavIcon name="resume" />
-            <span>在线简历</span>
-          </a>
-        </nav>
+            <a
+              className="nav-link resume-link"
+              href="#resume"
+              onClick={(event) => {
+                event.preventDefault();
+                showToast("在线简历将在后续补充");
+              }}
+            >
+              <NavIcon name="resume" />
+              <span>在线简历</span>
+            </a>
+          </nav>
+        </div>
       </header>
 
       <section className="screen-section cover-section" id="cover" aria-labelledby="cover-heading">
@@ -162,10 +164,10 @@ export default function Home() {
             src="/assets/cover/title.png"
             alt="Hello. I'm a UX designer. 2026 设计作品集"
           />
-          <a className="mouse-scroll" href="#about" aria-label="向下查看能力一览">
-            <span className="mouse-outline" aria-hidden="true"><i /></span>
-          </a>
         </div>
+        <a className="mouse-scroll" href="#about" aria-label="向下查看能力一览">
+          <span className="mouse-outline" aria-hidden="true"><i /></span>
+        </a>
       </section>
 
       <section className="screen-section about-section" id="about" aria-labelledby="about-heading">
@@ -207,6 +209,9 @@ export default function Home() {
             </button>
           </div>
         </div>
+        <a className="mouse-scroll" href="#projects" aria-label="向下查看项目目录">
+          <span className="mouse-outline" aria-hidden="true"><i /></span>
+        </a>
       </section>
 
       <section className="screen-section projects-section" id="projects" aria-labelledby="projects-heading">
