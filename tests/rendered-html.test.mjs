@@ -43,7 +43,11 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(page, /navigator\.clipboard\.writeText/);
   assert.match(page, /手机号已复制/);
   assert.match(page, /project-nav-menu/);
+  assert.match(page, /个人首页/);
+  assert.match(page, /在线简历/);
+  assert.match(page, /mouse-scroll/);
   assert.match(css, /scroll-snap-type:\s*y mandatory/);
   assert.match(css, /min-width:\s*1180px/);
+  assert.match(css, /max-width:\s*1920px/);
   assert.match(css, /project-card:hover/);
 });

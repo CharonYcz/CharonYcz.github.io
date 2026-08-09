@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const projects = [
   {
@@ -33,9 +33,46 @@ const projects = [
   },
 ];
 
+const projectMenu = [projects[0], projects[2], projects[3], projects[1]];
+
+type NavIconProps = {
+  name: "home" | "about" | "projects" | "resume";
+};
+
+function NavIcon({ name }: NavIconProps) {
+  return (
+    <span className="nav-icon" aria-hidden="true">
+      <img className="nav-icon-idle" src={`/assets/navigation/${name}-idle.png`} alt="" />
+      <img className="nav-icon-selected" src={`/assets/navigation/${name}-selected.png`} alt="" />
+    </span>
+  );
+}
+
 export default function Home() {
   const [toast, setToast] = useState("");
+  const [activeSection, setActiveSection] = useState("cover");
   const toastTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    const sections = ["cover", "about", "projects"]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { threshold: 0.55 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => {
+      observer.disconnect();
+      if (toastTimer.current) window.clearTimeout(toastTimer.current);
+    };
+  }, []);
 
   const showToast = (message: string) => {
     setToast(message);
@@ -61,23 +98,54 @@ export default function Home() {
 
   return (
     <main className="portfolio-shell">
-      <nav className="site-nav" aria-label="作品集导航">
-        <a href="#cover">首页</a>
-        <a href="#about">个人</a>
-        <div className="project-nav">
-          <a className="project-nav-trigger" href="#projects">
-            项目 <span aria-hidden="true">⌄</span>
+      <header className="site-header">
+        <a className="identity-card" href="#cover" aria-label="岳崇政 CharonY，返回个人首页">
+          <span className="identity-avatar">
+            <img src="/assets/navigation/profile.png" alt="岳崇政头像" />
+          </span>
+          <span className="identity-copy">
+            <strong>岳崇政</strong>
+            <small>CharonY</small>
+          </span>
+        </a>
+
+        <nav className="site-nav" aria-label="作品集导航">
+          <a className={`nav-link ${activeSection === "cover" ? "nav-link-active" : ""}`} href="#cover">
+            <NavIcon name="home" />
+            <span>个人首页</span>
           </a>
-          <div className="project-nav-menu" aria-label="项目列表">
-            {projects.map((project) => (
-              <a key={project.id} href={`#${project.id}`}>
-                <span>{project.label}</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            ))}
+          <a className={`nav-link ${activeSection === "about" ? "nav-link-active" : ""}`} href="#about">
+            <NavIcon name="about" />
+            <span>能力一览</span>
+          </a>
+          <div className={`project-nav ${activeSection === "projects" ? "nav-link-active" : ""}`}>
+            <a className="nav-link project-nav-trigger" href="#projects">
+              <NavIcon name="projects" />
+              <span>项目目录</span>
+              <i className="nav-caret" aria-hidden="true" />
+            </a>
+            <div className="project-nav-menu" aria-label="项目列表">
+              {projectMenu.map((project) => (
+                <a key={project.id} href={`#${project.id}`}>
+                  <span>{project.id === "project-ai" ? "AIUX工作流" : project.label}</span>
+                  <span aria-hidden="true">›</span>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </nav>
+          <a
+            className="nav-link resume-link"
+            href="#resume"
+            onClick={(event) => {
+              event.preventDefault();
+              showToast("在线简历将在后续补充");
+            }}
+          >
+            <NavIcon name="resume" />
+            <span>在线简历</span>
+          </a>
+        </nav>
+      </header>
 
       <section className="screen-section cover-section" id="cover" aria-labelledby="cover-heading">
         <div className="design-stage cover-stage">
@@ -89,23 +157,13 @@ export default function Home() {
             src="/assets/cover/background.png"
             alt="充满紫色与暖橙灯光的创意设计工作台"
           />
-          <div className="cover-meta" aria-label="作品集信息">
-            <span className="brand-line"><i aria-hidden="true" />Lucky 2026</span>
-            <a href="mailto:chongzheng.yue@foxmail.com">chongzheng.yue@foxmail.com</a>
-          </div>
           <img
             className="cover-title-art"
             src="/assets/cover/title.png"
             alt="Hello. I'm a UX designer. 2026 设计作品集"
           />
-          <div className="cover-footer" aria-hidden="true">
-            <span>● Cease 2024 ~ 2026</span>
-            <span>「用户体验设计的目的就是让“散文转变为诗歌”」</span>
-            <span>Copyright 2026 @ CharonY</span>
-          </div>
-          <a className="scroll-cue" href="#about" aria-label="向下查看个人介绍">
-            <span>SCROLL</span>
-            <i aria-hidden="true" />
+          <a className="mouse-scroll" href="#about" aria-label="向下查看能力一览">
+            <span className="mouse-outline" aria-hidden="true"><i /></span>
           </a>
         </div>
       </section>
