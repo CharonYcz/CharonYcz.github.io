@@ -12,8 +12,8 @@ const config: ProjectDetailConfig = {
   ],
   overviewMedia: [
     { kind: "video", src: "/assets/details/experience/overview/overview-1.mp4", ariaLabel: "订单进行中项目概览视频" },
-    { kind: "image", src: "/assets/details/experience/overview/overview-2.png", alt: "订单进行中项目概览长图一" },
-    { kind: "image", src: "/assets/details/experience/overview/overview-3.png", alt: "订单进行中项目概览长图二" },
+    { kind: "image", src: "/assets/details/experience/overview/overview-3.png", alt: "订单进行中项目概览长图一" },
+    { kind: "image", src: "/assets/details/experience/overview/overview-2.png", alt: "订单进行中项目概览长图二" },
   ],
   media: [
     { kind: "image", src: "/assets/projects/ux.png", alt: "体验设计数据洞察示意" },

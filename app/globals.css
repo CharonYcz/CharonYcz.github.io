@@ -650,19 +650,18 @@ img {
 
 .detail-layout {
   display: grid;
-  grid-template-columns: 220px minmax(912px, 1572px);
+  grid-template-columns: 220px minmax(0, 1572px);
   column-gap: 48px;
   width: 100%;
-  max-width: 1840px;
-  padding-top: 156px;
-  padding-bottom: 120px;
+  max-width: 1904px;
+  padding: 144px 32px 120px;
   margin: 0 auto;
   align-items: start;
 }
 
 .detail-sidebar {
   position: sticky;
-  top: 156px;
+  top: 144px;
   width: 220px;
   padding: 10px;
   overflow: hidden;
@@ -742,7 +741,7 @@ img {
 
 .detail-content {
   width: 100%;
-  min-width: 912px;
+  min-width: 0;
   max-width: 1572px;
 }
 
