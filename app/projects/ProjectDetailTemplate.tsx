@@ -169,7 +169,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             ) : null}
           </section>
 
-          <div className="detail-media-stack" aria-label="项目详情素材">
+          <div className={`detail-media-stack${config.overviewMedia?.length ? " detail-media-stack-continuous" : ""}`} aria-label="项目详情素材">
             {detailSections.slice(1).flatMap((section, sectionIndex) => {
               const mediaGroup = config.sectionMedia?.[section.label]
                 ?? (config.media?.[sectionIndex] ? [config.media[sectionIndex]] : []);

@@ -813,7 +813,7 @@ img {
   margin-top: 100px;
 }
 
-.detail-overview-media + .detail-media-stack {
+.detail-media-stack-continuous {
   margin-top: 0;
 }
 
