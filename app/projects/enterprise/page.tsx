@@ -10,12 +10,34 @@ const config: ProjectDetailConfig = {
     { title: "体验策略", body: "统一任务入口、信息架构与交互规则，围绕高频工作链路提升操作效率。" },
     { title: "业务价值", body: "降低跨系统切换和学习成本，沉淀可复用的企业级产品设计体系。" },
   ],
-  media: [
-    { kind: "image", src: "/assets/projects/crm.png", alt: "中后台用研与体验策略示意" },
-    { kind: "image", src: "/assets/projects/crm-hover.png", alt: "中后台设计体系搭建示意" },
-    { kind: "image", src: "/assets/projects/directory.png", alt: "中后台方案输出思路示意" },
-    { kind: "image", src: "/assets/projects/ux.png", alt: "中后台项目复盘示意" },
+  overviewMedia: [
+    { kind: "image", src: "/assets/details/enterprise/01-background/01.png", alt: "需求分析和背景素材一" },
   ],
+  sectionMedia: {
+    "用研与体验策略": [
+      { kind: "image", src: "/assets/details/enterprise/02-research/01.png", alt: "用研与体验策略素材一" },
+    ],
+    "设计体系搭建": [
+      { kind: "image", src: "/assets/details/enterprise/03-system/01.png", alt: "设计体系搭建素材一" },
+      { kind: "image", src: "/assets/details/enterprise/03-system/02.png", alt: "设计体系搭建素材二" },
+      { kind: "image", src: "/assets/details/enterprise/03-system/03.png", alt: "设计体系搭建素材三" },
+    ],
+    "方案输出思路": [
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/01.png", alt: "方案输出思路素材一" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/02.png", alt: "方案输出思路素材二" },
+      { kind: "video", src: "/assets/details/enterprise/04-delivery/03.mp4", ariaLabel: "方案输出思路素材三" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/04.png", alt: "方案输出思路素材四" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/05.png", alt: "方案输出思路素材五" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/06.png", alt: "方案输出思路素材六" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/07.png", alt: "方案输出思路素材七" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/08.png", alt: "方案输出思路素材八" },
+      { kind: "image", src: "/assets/details/enterprise/04-delivery/09.png", alt: "方案输出思路素材九" },
+    ],
+    "项目复盘和更多": [
+      { kind: "image", src: "/assets/details/enterprise/05-review/01.png", alt: "项目复盘和更多素材一" },
+      { kind: "image", src: "/assets/details/enterprise/05-review/02.png", alt: "项目复盘和更多素材二" },
+    ],
+  },
 };
 
 export default function EnterpriseProjectPage() {

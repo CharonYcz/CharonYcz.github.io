@@ -11,18 +11,47 @@ const config: ProjectDetailConfig = {
     { title: "项目价值", body: "降低用户理解与操作成本，增强履约过程中的确定感，同时提升服务体验的一致性。" },
   ],
   overviewMedia: [
-    { kind: "video", src: "/assets/details/experience/overview/overview-1.mp4", ariaLabel: "订单进行中项目概览视频" },
-    { kind: "image", src: "/assets/details/experience/overview/overview-3.png", alt: "订单进行中项目概览长图一" },
-    { kind: "image", src: "/assets/details/experience/overview/overview-2.png", alt: "订单进行中项目概览长图二" },
+    { kind: "video", src: "/assets/details/experience/01-overview/01.mp4", ariaLabel: "订单进行中项目概览视频" },
+    { kind: "image", src: "/assets/details/experience/01-overview/02.png", alt: "订单进行中项目概览素材二" },
+    { kind: "image", src: "/assets/details/experience/01-overview/03.png", alt: "订单进行中项目概览素材三" },
   ],
-  media: [
-    { kind: "image", src: "/assets/projects/ux.png", alt: "体验设计数据洞察示意" },
-    { kind: "image", src: "/assets/projects/ux-hover.png", alt: "体验设计思考示意" },
-    { kind: "image", src: "/assets/projects/directory.png", alt: "体验设计链路优化示意" },
-    { kind: "image", src: "/assets/projects/crm.png", alt: "体验设计多业务适配示意" },
-    { kind: "image", src: "/assets/projects/ip.png", alt: "体验设计动效和视觉示意" },
-    { kind: "image", src: "/assets/projects/ai.png", alt: "体验设计项目复盘示意" },
-  ],
+  sectionMedia: {
+    "数据洞察": [
+      { kind: "image", src: "/assets/details/experience/02-insights/01.png", alt: "数据洞察素材一" },
+      { kind: "video", src: "/assets/details/experience/02-insights/02.mp4", ariaLabel: "数据洞察素材二" },
+      { kind: "image", src: "/assets/details/experience/02-insights/03.png", alt: "数据洞察素材三" },
+    ],
+    "体验思考": [
+      { kind: "image", src: "/assets/details/experience/03-thinking/01.png", alt: "体验思考素材一" },
+      { kind: "image", src: "/assets/details/experience/03-thinking/02.png", alt: "体验思考素材二" },
+      { kind: "image", src: "/assets/details/experience/03-thinking/03.png", alt: "体验思考素材三" },
+    ],
+    "链路优化": [
+      { kind: "image", src: "/assets/details/experience/04-flow/01.png", alt: "链路优化素材一" },
+      { kind: "video", src: "/assets/details/experience/04-flow/02.mp4", ariaLabel: "链路优化素材二" },
+      { kind: "image", src: "/assets/details/experience/04-flow/03.png", alt: "链路优化素材三" },
+    ],
+    "多业务适配": [
+      { kind: "image", src: "/assets/details/experience/05-adaptation/01.png", alt: "多业务适配素材一" },
+      { kind: "image", src: "/assets/details/experience/05-adaptation/02.png", alt: "多业务适配素材二" },
+      { kind: "image", src: "/assets/details/experience/05-adaptation/03.png", alt: "多业务适配素材三" },
+      { kind: "image", src: "/assets/details/experience/05-adaptation/04.png", alt: "多业务适配素材四" },
+      { kind: "image", src: "/assets/details/experience/05-adaptation/05.png", alt: "多业务适配素材五" },
+      { kind: "image", src: "/assets/details/experience/05-adaptation/06.png", alt: "多业务适配素材六" },
+      { kind: "image", src: "/assets/details/experience/05-adaptation/07.png", alt: "多业务适配素材七" },
+    ],
+    "动效和视觉": [
+      { kind: "image", src: "/assets/details/experience/06-motion/01.png", alt: "动效和视觉素材一" },
+      { kind: "video", src: "/assets/details/experience/06-motion/02.mp4", ariaLabel: "动效和视觉素材二" },
+      { kind: "image", src: "/assets/details/experience/06-motion/03.png", alt: "动效和视觉素材三" },
+      { kind: "video", src: "/assets/details/experience/06-motion/04.mp4", ariaLabel: "动效和视觉素材四" },
+    ],
+    "项目复盘": [
+      { kind: "image", src: "/assets/details/experience/07-review/01.png", alt: "项目复盘素材一" },
+      { kind: "image", src: "/assets/details/experience/07-review/02.png", alt: "项目复盘素材二" },
+      { kind: "image", src: "/assets/details/experience/07-review/03.png", alt: "项目复盘素材三" },
+    ],
+  },
 };
 
 export default function ExperienceProjectPage() {

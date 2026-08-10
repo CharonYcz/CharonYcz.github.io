@@ -45,9 +45,9 @@ test("server-renders the experience design detail page", async () => {
   assert.match(html, /Ongoing Order Page Experience Optimization/);
   assert.match(html, /项目概览/);
   assert.match(html, /项目复盘/);
-  assert.match(html, /overview-1\.mp4/);
-  assert.match(html, /overview-2\.png/);
-  assert.match(html, /overview-3\.png/);
+  assert.match(html, /01-overview\/01\.mp4/);
+  assert.match(html, /02-insights\/02\.mp4/);
+  assert.match(html, /06-motion\/04\.mp4/);
 
   const detailPage = await readFile(new URL("../app/projects/ProjectDetailTemplate.tsx", import.meta.url), "utf8");
   assert.match(detailPage, /autoPlay/);
@@ -67,6 +67,9 @@ test("server-renders the other project detail pages", async () => {
     assert.equal(response.status, 200);
     assert.match(await response.text(), new RegExp(title));
   }
+
+  const enterprise = await render("/projects/enterprise");
+  assert.match(await enterprise.text(), /04-delivery\/03\.mp4/);
 });
 
 test("keeps the requested homepage interactions in the client source", async () => {

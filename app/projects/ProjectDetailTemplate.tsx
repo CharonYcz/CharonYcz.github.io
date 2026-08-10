@@ -13,7 +13,8 @@ export type ProjectDetailConfig = {
   sections: string[];
   summaries: Array<{ title: string; body: string }>;
   overviewMedia?: ProjectDetailMedia[];
-  media: ProjectDetailMedia[];
+  sectionMedia?: Record<string, ProjectDetailMedia[]>;
+  media?: ProjectDetailMedia[];
 };
 
 const projectMenu = [
@@ -168,11 +169,18 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             ) : null}
           </section>
 
-          <div className="detail-media-stack" aria-label="项目详情示意素材">
-            {config.media.slice(0, detailSections.length - 1).map((media, index) => {
-              const section = detailSections[index + 1];
-              return (
-                <figure className="detail-media" id={section.id} data-detail-section key={section.id}>
+          <div className="detail-media-stack" aria-label="项目详情素材">
+            {detailSections.slice(1).flatMap((section, sectionIndex) => {
+              const mediaGroup = config.sectionMedia?.[section.label]
+                ?? (config.media?.[sectionIndex] ? [config.media[sectionIndex]] : []);
+
+              return mediaGroup.map((media, mediaIndex) => (
+                <figure
+                  className="detail-media"
+                  id={mediaIndex === 0 ? section.id : undefined}
+                  data-detail-section={mediaIndex === 0 ? true : undefined}
+                  key={`${section.id}-${media.src}`}
+                >
                   {media.kind === "video" ? (
                     <video
                       src={media.src}
@@ -188,7 +196,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
                     <img src={media.src} alt={media.alt} />
                   )}
                 </figure>
-              );
+              ));
             })}
           </div>
         </article>
