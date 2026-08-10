@@ -10,6 +10,11 @@ const config: ProjectDetailConfig = {
     { title: "设计策略", body: "围绕状态感知、核心任务与服务反馈重组信息层级，并统一关键场景的交互表达。" },
     { title: "项目价值", body: "降低用户理解与操作成本，增强履约过程中的确定感，同时提升服务体验的一致性。" },
   ],
+  overviewMedia: [
+    { kind: "video", src: "/assets/details/experience/overview/overview-1.mp4", ariaLabel: "订单进行中项目概览视频" },
+    { kind: "image", src: "/assets/details/experience/overview/overview-2.png", alt: "订单进行中项目概览长图一" },
+    { kind: "image", src: "/assets/details/experience/overview/overview-3.png", alt: "订单进行中项目概览长图二" },
+  ],
   media: [
     { kind: "image", src: "/assets/projects/ux.png", alt: "体验设计数据洞察示意" },
     { kind: "image", src: "/assets/projects/ux-hover.png", alt: "体验设计思考示意" },

@@ -12,6 +12,7 @@ export type ProjectDetailConfig = {
   subtitle: string;
   sections: string[];
   summaries: Array<{ title: string; body: string }>;
+  overviewMedia?: ProjectDetailMedia[];
   media: ProjectDetailMedia[];
 };
 
@@ -142,6 +143,29 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
                 </section>
               ))}
             </div>
+
+            {config.overviewMedia?.length ? (
+              <div className="detail-media-stack detail-overview-media" aria-label="项目概览素材">
+                {config.overviewMedia.map((media, index) => (
+                  <figure className="detail-media" key={`${media.src}-${index}`}>
+                    {media.kind === "video" ? (
+                      <video
+                        src={media.src}
+                        aria-label={media.ariaLabel}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        tabIndex={-1}
+                      />
+                    ) : (
+                      <img src={media.src} alt={media.alt} />
+                    )}
+                  </figure>
+                ))}
+              </div>
+            ) : null}
           </section>
 
           <div className="detail-media-stack" aria-label="项目详情示意素材">
