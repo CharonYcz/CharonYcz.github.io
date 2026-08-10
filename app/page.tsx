@@ -190,8 +190,8 @@ export default function Home() {
           </p>
 
           <div className="honor-links" aria-label="个人荣誉">
-            <button type="button" onClick={() => showToast("荣誉链接将在后续补充")}>• UI中国第144期榜单TOP1</button>
-            <button type="button" onClick={() => showToast("荣誉链接将在后续补充")}>• 站酷人气设计师</button>
+            <a href="https://www.ui.cn/detail/661217.html?nopop=1" target="_blank" rel="noreferrer">• UI中国第144期榜单TOP1</a>
+            <a href="https://www.zcool.com.cn/u/13474438" target="_blank" rel="noreferrer">• 站酷人气设计师</a>
           </div>
 
           <div className="contact-actions" aria-label="联系方式">

@@ -465,7 +465,9 @@ img {
   height: 5.48%;
 }
 
-.honor-links button {
+.honor-links a {
+  display: grid;
+  place-items: center;
   width: 48.35%;
   height: 100%;
   padding: 0 3%;
@@ -479,8 +481,8 @@ img {
   transition: transform 180ms ease, filter 180ms ease;
 }
 
-.honor-links button:hover,
-.honor-links button:focus-visible {
+.honor-links a:hover,
+.honor-links a:focus-visible {
   filter: brightness(1.18) saturate(1.18) drop-shadow(0 10px 18px rgba(113, 80, 255, 0.34));
   outline: none;
   transform: translateY(-4px);
@@ -809,6 +811,10 @@ img {
   gap: 0;
   width: 100%;
   margin-top: 100px;
+}
+
+.detail-overview-media + .detail-media-stack {
+  margin-top: 0;
 }
 
 .detail-media {
