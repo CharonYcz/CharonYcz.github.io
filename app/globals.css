@@ -62,6 +62,7 @@ img {
   min-width: 1180px;
   height: 100vh;
   min-height: 664px;
+  padding: 0 48px;
   place-items: center;
   overflow: hidden;
   scroll-snap-align: start;
@@ -72,7 +73,7 @@ img {
 .design-stage {
   position: relative;
   width: 100%;
-  max-width: min(1600px, calc(100vh * 16 / 9));
+  max-width: min(1504px, calc(100vh * 16 / 9));
   aspect-ratio: 16 / 9;
   max-height: 100vh;
   overflow: hidden;
@@ -656,7 +657,7 @@ img {
   column-gap: 48px;
   width: 100%;
   max-width: 1904px;
-  padding: 144px 32px 120px;
+  padding: 144px 48px 120px;
   margin: 0 auto;
   align-items: start;
 }

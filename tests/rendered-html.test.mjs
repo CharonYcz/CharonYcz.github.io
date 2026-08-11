@@ -84,7 +84,7 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(page, /mouse-scroll/);
   assert.match(css, /scroll-snap-type:\s*y mandatory/);
   assert.match(css, /min-width:\s*1180px/);
-  assert.match(css, /max-width:\s*min\(1600px/);
+  assert.match(css, /max-width:\s*min\(1504px/);
   assert.match(css, /\.site-header[\s\S]*?width:\s*100vw/);
   assert.match(css, /height:\s*76px/);
   assert.match(css, /padding:\s*0 120px/);
@@ -93,5 +93,5 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(css, /project-card:hover/);
   assert.match(css, /grid-template-columns:\s*220px minmax\(0, 1572px\)/);
   assert.match(css, /max-width:\s*1904px/);
-  assert.match(css, /padding:\s*144px 32px 120px/);
+  assert.match(css, /padding:\s*144px 48px 120px/);
 });
