@@ -45,6 +45,7 @@ const config: ProjectDetailConfig = {
       { kind: "video", src: "/assets/details/experience/06-motion/02.mp4", ariaLabel: "动效和视觉素材二" },
       { kind: "image", src: "/assets/details/experience/06-motion/03.png", alt: "动效和视觉素材三" },
       { kind: "video", src: "/assets/details/experience/06-motion/04.mp4", ariaLabel: "动效和视觉素材四" },
+      { kind: "image", src: "/assets/details/experience/06-motion/05.png", alt: "动效和视觉素材五" },
     ],
     "项目复盘": [
       { kind: "image", src: "/assets/details/experience/07-review/01.png", alt: "项目复盘素材一" },
