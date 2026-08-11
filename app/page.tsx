@@ -158,10 +158,16 @@ export default function Home() {
           <h1 className="visually-hidden" id="cover-heading">
             岳崇政 2026 设计作品集
           </h1>
-          <img
+          <video
             className="stage-background"
-            src="/assets/cover/background.png"
-            alt="充满紫色与暖橙灯光的创意设计工作台"
+            src="/assets/cover/ambient-desktop-loop.mp4"
+            aria-label="充满紫色与暖橙灯光的创意设计工作台循环动画"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            tabIndex={-1}
           />
           <img
             className="cover-title-art"

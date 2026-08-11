@@ -10,12 +10,29 @@ const config: ProjectDetailConfig = {
     { title: "智能策略", body: "将语义规范、场景判断和审核逻辑沉淀到COZE智能体工作流中。" },
     { title: "提效价值", body: "减少重复检查与人工修改，让产品文案输出更稳定、更一致。" },
   ],
-  media: [
-    { kind: "image", src: "/assets/projects/ai.png", alt: "AI工作流设计思路示意" },
-    { kind: "image", src: "/assets/projects/ai-hover.png", alt: "AI工作流搭建示意" },
-    { kind: "image", src: "/assets/projects/directory.png", alt: "AI文案输出示意" },
-    { kind: "image", src: "/assets/projects/ux-hover.png", alt: "AI工作流沉淀与迭代示意" },
+  overviewMedia: [
+    { kind: "image", src: "/assets/details/ai-workflow/01-background/01.png", alt: "AI工作流项目背景素材一" },
   ],
+  sectionMedia: {
+    "设计思路": [
+      { kind: "image", src: "/assets/details/ai-workflow/02-thinking/01.png", alt: "设计思路素材一" },
+      { kind: "video", src: "/assets/details/ai-workflow/02-thinking/02.mp4", ariaLabel: "设计思路素材二" },
+      { kind: "image", src: "/assets/details/ai-workflow/02-thinking/03.png", alt: "设计思路素材三" },
+    ],
+    "工作流搭建": [
+      { kind: "image", src: "/assets/details/ai-workflow/03-workflow/01.png", alt: "工作流搭建素材一" },
+      { kind: "video", src: "/assets/details/ai-workflow/03-workflow/02.mp4", ariaLabel: "工作流搭建素材二" },
+      { kind: "image", src: "/assets/details/ai-workflow/03-workflow/03.png", alt: "工作流搭建素材三" },
+    ],
+    "文案输出": [
+      { kind: "image", src: "/assets/details/ai-workflow/04-copy/01.png", alt: "文案输出素材一" },
+      { kind: "image", src: "/assets/details/ai-workflow/04-copy/02.png", alt: "文案输出素材二" },
+    ],
+    "沉淀与迭代": [
+      { kind: "image", src: "/assets/details/ai-workflow/05-iteration/01.png", alt: "沉淀与迭代素材一" },
+      { kind: "video", src: "/assets/details/ai-workflow/05-iteration/02.mp4", ariaLabel: "沉淀与迭代素材二" },
+    ],
+  },
 };
 
 export default function AiWorkflowProjectPage() {
