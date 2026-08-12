@@ -19,11 +19,11 @@ export function PointerEffects() {
     const trail: TrailParticle[] = [];
     const burst: BurstParticle[] = [];
     const colors: ParticleColor[] = [
-      [141, 225, 255],
-      [100, 194, 255],
-      [126, 240, 231],
-      [188, 177, 255],
-      [213, 237, 255],
+      [102, 225, 255],
+      [72, 172, 255],
+      [65, 236, 212],
+      [158, 122, 255],
+      [143, 213, 255],
     ];
     let animationFrame = 0;
     let lastX = -100;
@@ -55,8 +55,8 @@ export function PointerEffects() {
       context.globalCompositeOperation = "lighter";
       for (let index = trail.length - 1; index >= 0; index -= 1) {
         const particle = trail[index];
-        particle.life -= 0.023;
-        particle.radius *= 1.012;
+        particle.life -= 0.014;
+        particle.radius *= 1.024;
         if (particle.life <= 0) { trail.splice(index, 1); continue; }
         drawGlow(particle.x, particle.y, particle.radius, particle.alpha * particle.life * particle.life, particle.color);
       }
@@ -77,33 +77,33 @@ export function PointerEffects() {
     const onMove = (event: PointerEvent) => {
       if (reducedMotion.matches) return;
       const distance = Math.hypot(event.clientX - lastX, event.clientY - lastY);
-      if (distance < 7) return;
+      if (distance < 18) return;
       lastX = event.clientX;
       lastY = event.clientY;
-      const count = 2 + Math.floor(Math.random() * 3);
+      const count = 1 + Math.floor(Math.random() * 2);
       for (let index = 0; index < count; index += 1) {
         const angle = Math.random() * Math.PI * 2;
-        const spread = 3 + Math.random() * 18;
+        const spread = 4 + Math.random() * 23;
         trail.push({
           x: event.clientX + Math.cos(angle) * spread,
           y: event.clientY + Math.sin(angle) * spread,
-          radius: 3 + Math.random() * 4.5,
-          alpha: 0.24 + Math.random() * 0.2,
+          radius: 2.5 + Math.random() * 3.5,
+          alpha: 0.38 + Math.random() * 0.22,
           life: 1,
           color: colors[Math.floor(Math.random() * colors.length)],
         });
       }
-      if (trail.length > 72) trail.splice(0, trail.length - 72);
+      if (trail.length > 38) trail.splice(0, trail.length - 38);
     };
 
     const onDown = (event: PointerEvent) => {
       if (reducedMotion.matches) return;
-      for (let index = 0; index < 22; index += 1) {
-        const angle = (Math.PI * 2 * index) / 22 + (Math.random() - 0.5) * 0.35;
-        const speed = 1.2 + Math.random() * 3.7;
-        burst.push({ x: event.clientX, y: event.clientY, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, radius: 1.1 + Math.random() * 1.8, alpha: 0.9, life: 1, decay: 0.018 + Math.random() * 0.016, color: colors[Math.floor(Math.random() * colors.length)] });
+      for (let index = 0; index < 16; index += 1) {
+        const angle = (Math.PI * 2 * index) / 16 + (Math.random() - 0.5) * 0.35;
+        const speed = 0.8 + Math.random() * 2.45;
+        burst.push({ x: event.clientX, y: event.clientY, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, radius: 0.85 + Math.random() * 1.25, alpha: 0.92, life: 1, decay: 0.022 + Math.random() * 0.018, color: colors[Math.floor(Math.random() * colors.length)] });
       }
-      if (burst.length > 180) burst.splice(0, burst.length - 180);
+      if (burst.length > 128) burst.splice(0, burst.length - 128);
     };
 
     const onMotionChange = () => { if (reducedMotion.matches) { trail.splice(0); burst.splice(0); } };
