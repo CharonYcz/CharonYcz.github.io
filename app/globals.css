@@ -662,10 +662,10 @@ img {
 
 .detail-layout {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1572px);
+  grid-template-columns: 220px minmax(800px, 1440px);
   column-gap: 48px;
   width: 100%;
-  max-width: 1904px;
+  max-width: 1752px;
   padding: 144px 48px 120px;
   margin: 0 auto;
   align-items: start;
@@ -753,8 +753,8 @@ img {
 
 .detail-content {
   width: 100%;
-  min-width: 0;
-  max-width: 1572px;
+  min-width: 800px;
+  max-width: 1440px;
 }
 
 .detail-intro {
