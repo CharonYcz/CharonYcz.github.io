@@ -46,6 +46,19 @@ function DetailMediaFigure({ media, id, isSectionStart }: {
   isSectionStart?: boolean;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const mediaRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const element = mediaRef.current;
+    if (!element) return;
+
+    if (element instanceof HTMLImageElement && element.complete && element.naturalWidth > 0) {
+      setLoaded(true);
+    }
+    if (element instanceof HTMLVideoElement && element.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      setLoaded(true);
+    }
+  }, [media.src]);
 
   return (
     <figure
@@ -55,6 +68,7 @@ function DetailMediaFigure({ media, id, isSectionStart }: {
     >
       {media.kind === "video" ? (
         <video
+          ref={mediaRef as React.RefObject<HTMLVideoElement>}
           src={media.src}
           aria-label={media.ariaLabel}
           autoPlay
@@ -63,10 +77,10 @@ function DetailMediaFigure({ media, id, isSectionStart }: {
           playsInline
           preload="metadata"
           tabIndex={-1}
-          onLoadedData={() => setLoaded(true)}
+          onCanPlay={() => setLoaded(true)}
         />
       ) : (
-        <img src={media.src} alt={media.alt} onLoad={() => setLoaded(true)} />
+        <img ref={mediaRef as React.RefObject<HTMLImageElement>} src={media.src} alt={media.alt} onLoad={() => setLoaded(true)} />
       )}
       {!loaded ? <span className="detail-media-loading" aria-label="素材加载中"><i /></span> : null}
     </figure>
