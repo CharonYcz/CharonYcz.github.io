@@ -876,6 +876,106 @@ img {
   animation: detail-media-spin 720ms linear infinite;
 }
 
+.related-projects {
+  margin-top: 128px;
+  padding: 56px 0 120px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.related-projects-eyebrow {
+  margin: 0 0 8px;
+  color: var(--project-accent);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.related-projects h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 42px;
+  line-height: 1.25;
+}
+
+.related-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.related-project-card {
+  position: relative;
+  display: flex;
+  min-height: 220px;
+  padding: 24px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.7);
+  background: linear-gradient(145deg, rgba(23, 23, 27, 0.9), rgba(9, 9, 11, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.related-project-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0;
+  background: radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--related-accent) 28%, transparent), transparent 58%);
+  transition: opacity 180ms ease;
+}
+
+.related-project-card:hover,
+.related-project-card:focus-visible {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--related-accent) 62%, white 8%);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--related-accent) 16%, #16161a), rgba(9, 9, 11, 0.96));
+  outline: none;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38), 0 0 28px color-mix(in srgb, var(--related-accent) 20%, transparent);
+  transform: translateY(-5px);
+}
+
+.related-project-card:hover::before,
+.related-project-card:focus-visible::before { opacity: 1; }
+
+.related-project-index,
+.related-project-arrow,
+.related-project-copy { position: relative; z-index: 1; }
+
+.related-project-index {
+  color: var(--related-accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.related-project-arrow {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.related-project-card:hover .related-project-arrow,
+.related-project-card:focus-visible .related-project-arrow { transform: translate(3px, -3px); }
+
+.related-project-copy {
+  align-self: flex-end;
+  display: grid;
+  gap: 7px;
+}
+
+.related-project-copy small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.related-project-copy strong { font-size: 26px; line-height: 1.2; }
+
 @keyframes detail-media-spin {
   to { transform: rotate(360deg); }
 }

@@ -1,6 +1,7 @@
 import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetailTemplate";
 
 const config: ProjectDetailConfig = {
+  projectId: "enterprise",
   eyebrow: "Enterprise Business System Integration and Efficiency-FocusedExperience Optimization",
   title: "企业级业务系统整合与效率体验优化",
   titleHighlight: "系统整合",

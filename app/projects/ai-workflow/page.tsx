@@ -1,6 +1,7 @@
 import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetailTemplate";
 
 const config: ProjectDetailConfig = {
+  projectId: "ai-workflow",
   eyebrow: "Building a Coze AI Agent to Refine Semantic Expression",
   title: "搭建COZE智能体重塑语义",
   titleHighlight: "COZE智能体",

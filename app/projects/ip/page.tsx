@@ -1,6 +1,7 @@
 import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetailTemplate";
 
 const config: ProjectDetailConfig = {
+  projectId: "ip",
   eyebrow: "Empowering Brand Value Through IP Revitalization Across All Touchpoints",
   title: "IP改造赋能，全场景品牌价值渗透",
   titleHighlight: "品牌价值渗透",

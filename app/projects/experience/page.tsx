@@ -1,6 +1,7 @@
 import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetailTemplate";
 
 const config: ProjectDetailConfig = {
+  projectId: "experience",
   eyebrow: "Ongoing Order Page Experience Optimization",
   title: "订单进行中页面体验优化",
   titleHighlight: "体验优化",

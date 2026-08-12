@@ -7,6 +7,7 @@ export type ProjectDetailMedia =
   | { kind: "video"; src: string; ariaLabel: string };
 
 export type ProjectDetailConfig = {
+  projectId: "experience" | "enterprise" | "ip" | "ai-workflow";
   eyebrow: string;
   title: string;
   titleHighlight: string;
@@ -30,11 +31,11 @@ export type ProjectDetailConfig = {
 };
 
 const projectMenu = [
-  { label: "体验设计", href: "/projects/experience" },
-  { label: "中后台", href: "/projects/enterprise" },
-  { label: "IP设计", href: "/projects/ip" },
-  { label: "AIUX工作流", href: "/projects/ai-workflow" },
-];
+  { id: "experience", label: "体验设计", eyebrow: "UX DESIGN", href: "/projects/experience", color: "#FF6900" },
+  { id: "enterprise", label: "中后台", eyebrow: "ENTERPRISE SYSTEM", href: "/projects/enterprise", color: "#1D6EF5" },
+  { id: "ip", label: "IP设计", eyebrow: "IP DESIGN", href: "/projects/ip", color: "#FF6900" },
+  { id: "ai-workflow", label: "AIUX工作流", eyebrow: "AI WORKFLOW", href: "/projects/ai-workflow", color: "#00FBD0" },
+] as const;
 
 type NavIconProps = {
   name: "home" | "about" | "projects" | "resume";
@@ -143,6 +144,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
     "--project-card-end": config.theme.cardEnd,
     "--project-card-border": config.theme.cardBorder,
   } as CSSProperties;
+  const relatedProjects = projectMenu.filter((project) => project.id !== config.projectId);
 
   return (
     <main className="project-detail-page" style={themeStyle}>
@@ -247,6 +249,28 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
               ));
             })}
           </div>
+
+          <section className="related-projects" aria-labelledby="related-projects-title">
+            <p className="related-projects-eyebrow">MORE PROJECTS</p>
+            <h2 id="related-projects-title">切换到其他作品</h2>
+            <div className="related-projects-grid">
+              {relatedProjects.map((project, index) => (
+                <a
+                  className="related-project-card"
+                  href={project.href}
+                  key={project.id}
+                  style={{ "--related-accent": project.color } as CSSProperties}
+                >
+                  <span className="related-project-index">0{index + 1}</span>
+                  <span className="related-project-arrow" aria-hidden="true">↗</span>
+                  <span className="related-project-copy">
+                    <small>{project.eyebrow}</small>
+                    <strong>{project.label}</strong>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
         </article>
       </div>
 
