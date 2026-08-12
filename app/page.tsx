@@ -153,13 +153,14 @@ export default function Home() {
           </h1>
           <video
             className="stage-background"
-            src="/assets/cover/ambient-desktop-loop.mp4"
+            src="/assets/cover/ambient-desktop-loop.web.mp4"
+            poster="/assets/cover/background.png"
             aria-label="充满紫色与暖橙灯光的创意设计工作台循环动画"
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             tabIndex={-1}
           />
           <img
