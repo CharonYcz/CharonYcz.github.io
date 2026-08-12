@@ -138,14 +138,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <a
-              className="nav-link resume-link"
-              href="#resume"
-              onClick={(event) => {
-                event.preventDefault();
-                showToast("在线简历将在后续补充");
-              }}
-            >
+            <a className="nav-link resume-link" href="/assets/resume/%E5%B2%B3%E5%B4%87%E6%94%BF%E7%AE%80%E5%8E%86-2026.pdf" download="岳崇政简历-2026.pdf">
               <NavIcon name="resume" />
               <span>在线简历</span>
             </a>
@@ -190,9 +183,9 @@ export default function Home() {
           />
 
           <p className="about-copy">
-            从事UI设计7年+，精通ToB、ToC、UI规范建立、数据可视化、H5页面、动效设计等，并且擅长品牌设计、字体设计、AIGC等。
+            7年+互联⽹用户体验设计经验，覆盖C端、B端、中后台、运营活动及品牌体验；擅长主动发现问题、⽤户研究、数据分析、体验诊断、⽅案设计到研发跟进、上线验收和效果复盘的完整项目经验。
             <br />
-            主导过多个公司重点项目，擅于使用UCD方法论发现并解决问题，同时能兼任B端UE的用研、需求分析、原型输出、交互文档、交互规范等大部分工作。
+            精通体验交互、视觉效果、设计规范建设与AI辅助设计⼯作流。
           </p>
 
           <div className="honor-links" aria-label="个人荣誉">

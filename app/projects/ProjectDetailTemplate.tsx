@@ -175,14 +175,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
                 ))}
               </div>
             </div>
-            <a
-              className="nav-link resume-link"
-              href="#resume"
-              onClick={(event) => {
-                event.preventDefault();
-                showToast("在线简历将在后续补充");
-              }}
-            >
+            <a className="nav-link resume-link" href="/assets/resume/%E5%B2%B3%E5%B4%87%E6%94%BF%E7%AE%80%E5%8E%86-2026.pdf" download="岳崇政简历-2026.pdf">
               <NavIcon name="resume" />
               <span>在线简历</span>
             </a>
