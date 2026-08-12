@@ -834,7 +834,6 @@ img {
 .detail-media {
   position: relative;
   width: 100%;
-  min-height: 180px;
   padding: 0;
   margin: 0;
   overflow: hidden;
