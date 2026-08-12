@@ -44,6 +44,15 @@ button {
   border: 0;
 }
 
+.pointer-effects {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
 img {
   display: block;
   max-width: 100%;

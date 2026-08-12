@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { PointerEffects } from "./PointerEffects";
 
 export const metadata: Metadata = {
   title: "岳崇政｜2026 设计作品集",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>{children}<PointerEffects /></body>
     </html>
   );
 }
