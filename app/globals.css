@@ -865,6 +865,12 @@ img {
   pointer-events: none;
 }
 
+img,
+video {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .detail-media-loading {
   position: absolute;
   z-index: 1;

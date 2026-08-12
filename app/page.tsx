@@ -162,6 +162,9 @@ export default function Home() {
             playsInline
             preload="auto"
             tabIndex={-1}
+            controlsList="nodownload noplaybackrate noremoteplayback"
+            disablePictureInPicture
+            onContextMenu={(event) => event.preventDefault()}
           />
           <img
             className="cover-title-art"

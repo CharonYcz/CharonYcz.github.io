@@ -78,10 +78,13 @@ function DetailMediaFigure({ media, id, isSectionStart }: {
           playsInline
           preload="metadata"
           tabIndex={-1}
+          controlsList="nodownload noplaybackrate noremoteplayback"
+          disablePictureInPicture
+          onContextMenu={(event) => event.preventDefault()}
           onCanPlay={() => setLoaded(true)}
         />
       ) : (
-        <img ref={mediaRef as React.RefObject<HTMLImageElement>} src={media.src} alt={media.alt} onLoad={() => setLoaded(true)} />
+        <img ref={mediaRef as React.RefObject<HTMLImageElement>} src={media.src} alt={media.alt} draggable={false} onContextMenu={(event) => event.preventDefault()} onLoad={() => setLoaded(true)} />
       )}
       {!loaded ? <span className="detail-media-loading" aria-label="素材加载中"><i /></span> : null}
     </figure>
