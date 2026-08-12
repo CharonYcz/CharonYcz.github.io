@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 export type ProjectDetailMedia =
   | { kind: "image"; src: string; alt: string }
@@ -9,7 +9,19 @@ export type ProjectDetailMedia =
 export type ProjectDetailConfig = {
   eyebrow: string;
   title: string;
+  titleHighlight: string;
   subtitle: string;
+  theme: {
+    accent: string;
+    sidebarStart: string;
+    sidebarEnd: string;
+    sidebarBorder: string;
+    activeStart: string;
+    activeEnd: string;
+    cardStart: string;
+    cardEnd: string;
+    cardBorder: string;
+  };
   sections: string[];
   summaries: Array<{ title: string; body: string }>;
   overviewMedia?: ProjectDetailMedia[];
@@ -70,8 +82,23 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
     toastTimer.current = window.setTimeout(() => setToast(""), 2200);
   };
 
+  const highlightIndex = config.title.indexOf(config.titleHighlight);
+  const titleBefore = highlightIndex >= 0 ? config.title.slice(0, highlightIndex) : config.title;
+  const titleAfter = highlightIndex >= 0 ? config.title.slice(highlightIndex + config.titleHighlight.length) : "";
+  const themeStyle = {
+    "--project-accent": config.theme.accent,
+    "--project-sidebar-start": config.theme.sidebarStart,
+    "--project-sidebar-end": config.theme.sidebarEnd,
+    "--project-sidebar-border": config.theme.sidebarBorder,
+    "--project-active-start": config.theme.activeStart,
+    "--project-active-end": config.theme.activeEnd,
+    "--project-card-start": config.theme.cardStart,
+    "--project-card-end": config.theme.cardEnd,
+    "--project-card-border": config.theme.cardBorder,
+  } as CSSProperties;
+
   return (
-    <main className="project-detail-page">
+    <main className="project-detail-page" style={themeStyle}>
       <header className="site-header">
         <div className="site-header-inner">
           <a className="identity-card" href="/#cover" aria-label="岳崇政 CharonY，返回个人首页">
@@ -133,7 +160,11 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
         <article className="detail-content">
           <section className="detail-intro" id="project-overview" data-detail-section>
             <p className="detail-eyebrow">{config.eyebrow}</p>
-            <h1>{config.title}</h1>
+            <h1>
+              {titleBefore}
+              {highlightIndex >= 0 ? <span className="detail-title-highlight">{config.titleHighlight}</span> : null}
+              {titleAfter}
+            </h1>
             <p className="detail-subtitle">{config.subtitle}</p>
 
             <div className="detail-summary-grid" aria-label="项目摘要">

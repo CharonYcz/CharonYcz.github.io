@@ -3,7 +3,19 @@ import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetai
 const config: ProjectDetailConfig = {
   eyebrow: "Ongoing Order Page Experience Optimization",
   title: "订单进行中页面体验优化",
+  titleHighlight: "体验优化",
   subtitle: "基于20000余条用户体验监测反馈，在不改变原有业务流程与状态数量的前提下，系统优化订单状态感知、信息层级、核心操作与情绪反馈，提升用户在订单履约过程中的掌控感与服务满意度。",
+  theme: {
+    accent: "#FF6900",
+    sidebarStart: "rgba(43, 22, 8, 0.92)",
+    sidebarEnd: "rgba(16, 10, 6, 0.94)",
+    sidebarBorder: "rgba(255, 150, 69, 0.22)",
+    activeStart: "rgba(255, 105, 0, 0.34)",
+    activeEnd: "rgba(91, 37, 2, 0.16)",
+    cardStart: "rgba(93, 44, 8, 0.9)",
+    cardEnd: "rgba(37, 19, 7, 0.94)",
+    cardBorder: "rgba(255, 135, 30, 0.2)",
+  },
   sections: ["项目概览", "数据洞察", "体验思考", "链路优化", "多业务适配", "动效和视觉", "项目复盘"],
   summaries: [
     { title: "项目背景", body: "订单履约信息分散、状态表达不一致，用户难以快速判断当前进度与下一步操作。" },

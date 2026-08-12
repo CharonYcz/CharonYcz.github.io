@@ -3,7 +3,19 @@ import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetai
 const config: ProjectDetailConfig = {
   eyebrow: "Building a Coze AI Agent to Refine Semantic Expression",
   title: "搭建COZE智能体重塑语义",
+  titleHighlight: "COZE智能体",
   subtitle: "随着业务场景持续增加，文案逐渐由不同角色分别产出，缺少统一的语义标准，不同页面在名词、语气、操作提示与情绪表达上出现明显差异，既增加用户理解成本，也让设计师需要反复进行人工检查与修改。",
+  theme: {
+    accent: "#00FBD0",
+    sidebarStart: "rgba(6, 42, 40, 0.92)",
+    sidebarEnd: "rgba(5, 19, 20, 0.94)",
+    sidebarBorder: "rgba(52, 255, 219, 0.22)",
+    activeStart: "rgba(0, 251, 208, 0.27)",
+    activeEnd: "rgba(0, 100, 85, 0.16)",
+    cardStart: "rgba(7, 82, 77, 0.88)",
+    cardEnd: "rgba(5, 38, 39, 0.94)",
+    cardBorder: "rgba(0, 251, 208, 0.2)",
+  },
   sections: ["项目背景", "设计思路", "工作流搭建", "文案输出", "沉淀与迭代"],
   summaries: [
     { title: "问题背景", body: "多角色分散产出文案，名词、语气与操作提示缺少统一标准。" },

@@ -644,6 +644,15 @@ img {
 
 /* Experience design project detail */
 .project-detail-page {
+  --project-accent: #a643ff;
+  --project-sidebar-start: rgba(27, 18, 36, 0.78);
+  --project-sidebar-end: rgba(10, 8, 14, 0.9);
+  --project-sidebar-border: rgba(255, 255, 255, 0.16);
+  --project-active-start: rgba(101, 27, 148, 0.4);
+  --project-active-end: rgba(65, 17, 89, 0.14);
+  --project-card-start: rgba(55, 18, 82, 0.84);
+  --project-card-end: rgba(20, 11, 29, 0.9);
+  --project-card-border: rgba(184, 91, 255, 0.1);
   width: 100%;
   min-width: 1180px;
   min-height: 100vh;
@@ -669,8 +678,8 @@ img {
   padding: 10px;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.58);
-  background: linear-gradient(160deg, rgba(27, 18, 36, 0.78), rgba(10, 8, 14, 0.9));
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(160deg, var(--project-sidebar-start), var(--project-sidebar-end));
+  border: 1px solid var(--project-sidebar-border);
   border-radius: 16px;
   box-shadow: 0 20px 52px rgba(0, 0, 0, 0.38);
   backdrop-filter: blur(16px);
@@ -734,7 +743,7 @@ img {
 .detail-section-nav a:focus-visible,
 .detail-section-nav .detail-nav-active {
   color: #fff;
-  background: linear-gradient(90deg, rgba(101, 27, 148, 0.4), rgba(65, 17, 89, 0.14));
+  background: linear-gradient(90deg, var(--project-active-start), var(--project-active-end));
   outline: none;
 }
 
@@ -769,6 +778,10 @@ img {
   letter-spacing: -0.02em;
 }
 
+.detail-title-highlight {
+  color: var(--project-accent);
+}
+
 .detail-subtitle {
   margin: 12px 0 0;
   color: rgba(255, 255, 255, 0.6);
@@ -787,8 +800,8 @@ img {
 
 .detail-summary-card {
   padding: 28px 30px 30px;
-  background: linear-gradient(135deg, rgba(55, 18, 82, 0.84), rgba(20, 11, 29, 0.9));
-  border: 1px solid rgba(184, 91, 255, 0.1);
+  background: linear-gradient(135deg, var(--project-card-start), var(--project-card-end));
+  border: 1px solid var(--project-card-border);
   border-radius: 16px;
 }
 

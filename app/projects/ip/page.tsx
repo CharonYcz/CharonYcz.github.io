@@ -3,7 +3,19 @@ import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetai
 const config: ProjectDetailConfig = {
   eyebrow: "Empowering Brand Value Through IP Revitalization Across All Touchpoints",
   title: "IP改造赋能，全场景品牌价值渗透",
+  titleHighlight: "品牌价值渗透",
   subtitle: "统一IP视觉表达，沉淀标准化设计资产，提升多场景应用与团队复用效率。",
+  theme: {
+    accent: "#FF6900",
+    sidebarStart: "rgba(43, 22, 8, 0.92)",
+    sidebarEnd: "rgba(16, 10, 6, 0.94)",
+    sidebarBorder: "rgba(255, 150, 69, 0.22)",
+    activeStart: "rgba(255, 105, 0, 0.34)",
+    activeEnd: "rgba(91, 37, 2, 0.16)",
+    cardStart: "rgba(93, 44, 8, 0.9)",
+    cardEnd: "rgba(37, 19, 7, 0.94)",
+    cardBorder: "rgba(255, 135, 30, 0.2)",
+  },
   sections: ["需求分析", "用研与竞品", "AI介入工作流", "完整资产输出", "案例与复盘"],
   summaries: [
     { title: "改造目标", body: "统一IP角色的核心特征与视觉语言，建立稳定、易识别的品牌表达。" },

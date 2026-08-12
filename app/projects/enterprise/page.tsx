@@ -3,7 +3,19 @@ import { ProjectDetailTemplate, type ProjectDetailConfig } from "../ProjectDetai
 const config: ProjectDetailConfig = {
   eyebrow: "Enterprise Business System Integration and Efficiency-FocusedExperience Optimization",
   title: "企业级业务系统整合与效率体验优化",
+  titleHighlight: "系统整合",
   subtitle: "随着企业业务发展，CRM、IM、HRM、OA等系统在不同阶段独立建设，形成多个入口和数据孤岛，导致操作路径分散、交互规则不统一、信息检素效率低，影响员工日常工作效率与体验。",
+  theme: {
+    accent: "#1D6EF5",
+    sidebarStart: "rgba(10, 26, 62, 0.92)",
+    sidebarEnd: "rgba(7, 13, 31, 0.94)",
+    sidebarBorder: "rgba(89, 147, 255, 0.24)",
+    activeStart: "rgba(29, 110, 245, 0.34)",
+    activeEnd: "rgba(11, 45, 112, 0.17)",
+    cardStart: "rgba(18, 61, 137, 0.9)",
+    cardEnd: "rgba(10, 27, 68, 0.94)",
+    cardBorder: "rgba(58, 132, 255, 0.22)",
+  },
   sections: ["需求分析和背景", "用研与体验策略", "设计体系搭建", "方案输出思路", "项目复盘和更多"],
   summaries: [
     { title: "整合背景", body: "多个业务系统独立建设，入口、规则与数据结构分散，增加员工使用与查找成本。" },
