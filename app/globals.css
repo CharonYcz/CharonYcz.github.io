@@ -832,7 +832,9 @@ img {
 }
 
 .detail-media {
+  position: relative;
   width: 100%;
+  min-height: 180px;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -853,6 +855,30 @@ img {
 
 .detail-media video {
   pointer-events: none;
+}
+
+.detail-media-loading {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 20, 22, 0.34);
+  backdrop-filter: blur(20px) saturate(0.7);
+  -webkit-backdrop-filter: blur(20px) saturate(0.7);
+}
+
+.detail-media-loading i {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.24);
+  border-top-color: rgba(255, 255, 255, 0.94);
+  border-radius: 50%;
+  animation: detail-media-spin 720ms linear infinite;
+}
+
+@keyframes detail-media-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Feedback */

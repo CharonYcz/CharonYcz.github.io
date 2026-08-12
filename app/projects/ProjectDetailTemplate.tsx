@@ -40,6 +40,39 @@ type NavIconProps = {
   name: "home" | "about" | "projects" | "resume";
 };
 
+function DetailMediaFigure({ media, id, isSectionStart }: {
+  media: ProjectDetailMedia;
+  id?: string;
+  isSectionStart?: boolean;
+}) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <figure
+      className={`detail-media${loaded ? " detail-media-loaded" : ""}`}
+      id={id}
+      data-detail-section={isSectionStart ? true : undefined}
+    >
+      {media.kind === "video" ? (
+        <video
+          src={media.src}
+          aria-label={media.ariaLabel}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          tabIndex={-1}
+          onLoadedData={() => setLoaded(true)}
+        />
+      ) : (
+        <img src={media.src} alt={media.alt} onLoad={() => setLoaded(true)} />
+      )}
+      {!loaded ? <span className="detail-media-loading" aria-label="素材加载中"><i /></span> : null}
+    </figure>
+  );
+}
+
 function NavIcon({ name }: NavIconProps) {
   return (
     <span className="nav-icon" aria-hidden="true">
@@ -179,22 +212,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             {config.overviewMedia?.length ? (
               <div className="detail-media-stack detail-overview-media" aria-label="项目概览素材">
                 {config.overviewMedia.map((media, index) => (
-                  <figure className="detail-media" key={`${media.src}-${index}`}>
-                    {media.kind === "video" ? (
-                      <video
-                        src={media.src}
-                        aria-label={media.ariaLabel}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="metadata"
-                        tabIndex={-1}
-                      />
-                    ) : (
-                      <img src={media.src} alt={media.alt} />
-                    )}
-                  </figure>
+                  <DetailMediaFigure media={media} key={`${media.src}-${index}`} />
                 ))}
               </div>
             ) : null}
@@ -206,27 +224,12 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
                 ?? (config.media?.[sectionIndex] ? [config.media[sectionIndex]] : []);
 
               return mediaGroup.map((media, mediaIndex) => (
-                <figure
-                  className="detail-media"
+                <DetailMediaFigure
                   id={mediaIndex === 0 ? section.id : undefined}
-                  data-detail-section={mediaIndex === 0 ? true : undefined}
+                  isSectionStart={mediaIndex === 0}
                   key={`${section.id}-${media.src}`}
-                >
-                  {media.kind === "video" ? (
-                    <video
-                      src={media.src}
-                      aria-label={media.ariaLabel}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                      tabIndex={-1}
-                    />
-                  ) : (
-                    <img src={media.src} alt={media.alt} />
-                  )}
-                </figure>
+                  media={media}
+                />
               ));
             })}
           </div>
