@@ -35,8 +35,9 @@ const config: ProjectDetailConfig = {
       { kind: "image", src: "/assets/details/ip/05-review/01.png", alt: "案例与复盘素材一" },
       { kind: "image", src: "/assets/details/ip/05-review/02.png", alt: "案例与复盘素材二" },
       { kind: "video", src: "/assets/details/ip/05-review/03.mp4", ariaLabel: "案例与复盘素材三" },
-      { kind: "video", src: "/assets/details/ip/05-review/04.mp4", ariaLabel: "案例与复盘素材四" },
-      { kind: "image", src: "/assets/details/ip/05-review/05.png", alt: "案例与复盘素材五" },
+      { kind: "image", src: "/assets/details/ip/05-review/04.png", alt: "案例与复盘素材四" },
+      { kind: "video", src: "/assets/details/ip/05-review/05.mp4", ariaLabel: "案例与复盘素材五" },
+      { kind: "image", src: "/assets/details/ip/05-review/06.png", alt: "案例与复盘素材六" },
     ],
   },
 };
