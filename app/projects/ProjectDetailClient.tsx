@@ -49,7 +49,7 @@ export function ProjectDetailClient() {
       },
       { rootMargin: `${MEDIA_PRELOAD_DISTANCE}px 0px`, threshold: 0.01 },
     );
-    figures.forEach((figure) => mediaObserver.observe(figure));
+    figures.filter((figure) => !figure.querySelector("video")).forEach((figure) => mediaObserver.observe(figure));
 
     const videos = [...document.querySelectorAll<HTMLVideoElement>("video[data-viewport-video]")];
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");

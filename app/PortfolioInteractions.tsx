@@ -2,19 +2,22 @@
 
 import { useEffect } from "react";
 
-const hoverImageSelector = ".project-card-hover";
+const hoverImageSelector = "img[data-hover-src]";
 
 function loadHoverImage(card: Element) {
   const image = card.querySelector<HTMLImageElement>(hoverImageSelector);
-  if (!image) return;
+  if (!image?.dataset.hoverSrc) return;
   const markHoverReady = () => {
     void image.decode().catch(() => undefined).then(() => card.classList.add("project-card-hover-ready"));
   };
-  if (image.complete && image.naturalWidth > 0) {
-    markHoverReady();
-  } else {
-    image.addEventListener("load", markHoverReady, { once: true });
-  }
+  image.addEventListener("load", markHoverReady, { once: true });
+  card.querySelectorAll<HTMLElement>("source[data-hover-srcset]").forEach((source) => {
+    if (source.dataset.hoverSrcset) source.setAttribute("srcset", source.dataset.hoverSrcset);
+    delete source.dataset.hoverSrcset;
+  });
+  image.src = image.dataset.hoverSrc;
+  delete image.dataset.hoverSrc;
+  if (image.complete && image.naturalWidth > 0) markHoverReady();
 }
 
 export function PortfolioInteractions() {
@@ -88,10 +91,20 @@ export function PortfolioInteractions() {
     };
 
     const projectCards = [...document.querySelectorAll<HTMLElement>("[data-project-card]")];
-    projectCards.forEach(loadHoverImage);
+    const projectsSection = document.getElementById("projects");
+    const hoverObserver = new IntersectionObserver(
+      (entries, observer) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        projectCards.forEach(loadHoverImage);
+        observer.disconnect();
+      },
+      { rootMargin: "600px 0px", threshold: 0.01 },
+    );
+    if (projectsSection) hoverObserver.observe(projectsSection);
     document.addEventListener("click", onClick);
     return () => {
       pictureObserver.disconnect();
+      hoverObserver.disconnect();
       observer.disconnect();
       document.removeEventListener("click", onClick);
       window.clearTimeout(toastTimer);

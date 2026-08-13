@@ -50,9 +50,9 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
         <img className="project-card-default" data-src={image.src} alt="" width={image.width} height={image.height} loading="lazy" decoding="async" />
       </picture>
       <picture className="project-card-hover-picture">
-        {hover.avifSrc ? <source srcSet={hover.avifSrc} type="image/avif" /> : null}
-        {hover.webpSrc ? <source srcSet={hover.webpSrc} type="image/webp" /> : null}
-        <img className="project-card-hover" src={hover.src} alt="" width={hover.width} height={hover.height} loading="eager" decoding="async" fetchPriority="high" />
+        {hover.avifSrc ? <source data-hover-srcset={hover.avifSrc} type="image/avif" /> : null}
+        {hover.webpSrc ? <source data-hover-srcset={hover.webpSrc} type="image/webp" /> : null}
+        <img className="project-card-hover" data-hover-src={hover.src} alt="" width={hover.width} height={hover.height} loading="lazy" decoding="async" fetchPriority="low" />
       </picture>
     </a>
   );
