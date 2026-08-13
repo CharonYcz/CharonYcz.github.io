@@ -41,7 +41,7 @@ test("server-renders the experience design detail page", async () => {
   assert.equal(response.status, 200);
 
   const html = await response.text();
-  assert.match(html, /订单进行中页面体验优化/);
+  assert.match(html, /订单进行中页面(?:<[^>]+>)*体验优化/);
   assert.match(html, /Ongoing Order Page Experience Optimization/);
   assert.match(html, /项目概览/);
   assert.match(html, /项目复盘/);
@@ -50,18 +50,24 @@ test("server-renders the experience design detail page", async () => {
   assert.match(html, /06-motion\/04\.mp4/);
 
   const detailPage = await readFile(new URL("../app/projects/ProjectDetailTemplate.tsx", import.meta.url), "utf8");
+  const detailClient = await readFile(new URL("../app/projects/ProjectDetailClient.tsx", import.meta.url), "utf8");
   assert.match(detailPage, /data-viewport-video/);
   assert.match(detailPage, /preload="none"/);
   assert.match(detailPage, /poster=/);
   assert.match(detailPage, /loop/);
   assert.match(detailPage, /muted/);
+  assert.match(detailPage, /data-src=/);
+  assert.match(detailPage, /image\/avif/);
+  assert.match(detailPage, /image\/webp/);
+  assert.match(detailClient, /IntersectionObserver/);
+  assert.match(detailClient, /rootMargin:\s*"700px 0px"/);
 });
 
 test("server-renders the other project detail pages", async () => {
   const cases = [
-    ["/projects/enterprise", "企业级业务系统整合与效率体验优化"],
-    ["/projects/ip", "IP改造赋能，全场景品牌价值渗透"],
-    ["/projects/ai-workflow", "搭建COZE智能体重塑语义"],
+    ["/projects/enterprise", "企业级业务(?:<[^>]+>)*系统整合(?:<[^>]+>)*与效率体验优化"],
+    ["/projects/ip", "IP改造赋能，全场景(?:<[^>]+>)*品牌价值渗透"],
+    ["/projects/ai-workflow", "搭建(?:<[^>]+>)*COZE智能体(?:<[^>]+>)*重塑语义"],
   ];
 
   for (const [pathname, title] of cases) {
@@ -76,14 +82,24 @@ test("server-renders the other project detail pages", async () => {
 
 test("keeps the requested homepage interactions in the client source", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const interactions = await readFile(new URL("../app/PortfolioInteractions.tsx", import.meta.url), "utf8");
+  const hero = await readFile(new URL("../app/HeroVideo.tsx", import.meta.url), "utf8");
+  const pointer = await readFile(new URL("../app/PointerEffects.tsx", import.meta.url), "utf8");
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
-  assert.match(page, /navigator\.clipboard\.writeText/);
+  assert.doesNotMatch(page, /"use client"/);
+  assert.match(interactions, /navigator\.clipboard\.writeText/);
   assert.match(page, /手机号已复制/);
   assert.match(page, /project-nav-menu/);
   assert.match(page, /个人首页/);
   assert.match(page, /下载简历/);
   assert.match(page, /mouse-scroll/);
+  assert.match(page, /data-hover-src/);
+  assert.match(hero, /setTimeout\(load, 300\)/);
+  assert.match(hero, /preload="none"/);
+  assert.match(pointer, /requestRender/);
+  assert.match(pointer, /pointer:\s*fine/);
+  assert.doesNotMatch(pointer, /resize\(\);\s*render\(\)/);
   assert.match(css, /scroll-snap-type:\s*y mandatory/);
   assert.match(css, /min-width:\s*1180px/);
   assert.match(css, /max-width:\s*min\(1504px/);

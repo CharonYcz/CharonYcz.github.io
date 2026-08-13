@@ -12,6 +12,8 @@ export function PointerEffects() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    if (!finePointer.matches) return;
     const context = canvas.getContext("2d");
     if (!context) return;
 
@@ -26,6 +28,7 @@ export function PointerEffects() {
       [143, 213, 255],
     ];
     let animationFrame = 0;
+    let running = false;
     let lastX = -100;
     let lastY = -100;
 
@@ -71,6 +74,16 @@ export function PointerEffects() {
         drawGlow(particle.x, particle.y, particle.radius * 3.1, particle.alpha * particle.life, particle.color);
       }
       context.globalCompositeOperation = "source-over";
+      if (trail.length || burst.length) {
+        animationFrame = window.requestAnimationFrame(render);
+      } else {
+        running = false;
+      }
+    };
+
+    const requestRender = () => {
+      if (running || reducedMotion.matches || document.hidden) return;
+      running = true;
       animationFrame = window.requestAnimationFrame(render);
     };
 
@@ -94,6 +107,7 @@ export function PointerEffects() {
         });
       }
       if (trail.length > 38) trail.splice(0, trail.length - 38);
+      requestRender();
     };
 
     const onDown = (event: PointerEvent) => {
@@ -104,21 +118,31 @@ export function PointerEffects() {
         burst.push({ x: event.clientX, y: event.clientY, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, radius: 0.85 + Math.random() * 1.25, alpha: 0.92, life: 1, decay: 0.022 + Math.random() * 0.018, color: colors[Math.floor(Math.random() * colors.length)] });
       }
       if (burst.length > 128) burst.splice(0, burst.length - 128);
+      requestRender();
     };
 
-    const onMotionChange = () => { if (reducedMotion.matches) { trail.splice(0); burst.splice(0); } };
+    const stop = () => {
+      trail.splice(0);
+      burst.splice(0);
+      window.cancelAnimationFrame(animationFrame);
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      running = false;
+    };
+    const onMotionChange = () => { if (reducedMotion.matches) stop(); };
+    const onVisibilityChange = () => { if (document.hidden) stop(); };
     resize();
-    render();
     window.addEventListener("resize", resize, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
     reducedMotion.addEventListener("change", onMotionChange);
+    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       reducedMotion.removeEventListener("change", onMotionChange);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 

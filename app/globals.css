@@ -101,6 +101,18 @@ img {
   user-select: none;
 }
 
+picture.stage-background-picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+picture.stage-background-picture > .stage-background {
+  position: static;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -577,7 +589,25 @@ img {
   user-select: none;
 }
 
+.project-card picture,
+.directory-panel picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.project-card picture > img,
+.directory-panel picture > img {
+  opacity: 1;
+}
+
 .project-card-hover {
+  opacity: 0;
+  transition: opacity 220ms ease, transform 320ms ease;
+}
+
+.project-card-hover-picture {
   opacity: 0;
   transition: opacity 220ms ease, transform 320ms ease;
 }
@@ -588,13 +618,17 @@ img {
 }
 
 .project-card:hover .project-card-hover,
-.project-card:focus-visible .project-card-hover {
+.project-card:focus-visible .project-card-hover,
+.project-card:hover .project-card-hover-picture,
+.project-card:focus-visible .project-card-hover-picture {
   opacity: 1;
   transform: scale(1.006);
 }
 
 .project-card:hover .project-card-default,
-.project-card:focus-visible .project-card-default {
+.project-card:focus-visible .project-card-default,
+.project-card:hover .project-card-default-picture,
+.project-card:focus-visible .project-card-default-picture {
   opacity: 0;
 }
 
@@ -893,6 +927,10 @@ video {
   border-top-color: rgba(255, 255, 255, 0.94);
   border-radius: 50%;
   animation: detail-media-spin 720ms linear infinite;
+}
+
+.detail-media-loaded .detail-media-loading {
+  display: none;
 }
 
 .related-projects {

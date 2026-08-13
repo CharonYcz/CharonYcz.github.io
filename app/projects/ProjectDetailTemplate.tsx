@@ -1,6 +1,7 @@
-"use client";
-
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+/* eslint-disable @next/next/no-html-link-for-pages */
+import type { CSSProperties } from "react";
+import { imageMedia, videoMedia } from "../media";
+import { ProjectDetailClient } from "./ProjectDetailClient";
 
 export type ProjectDetailMedia =
   | { kind: "image"; src: string; alt: string }
@@ -37,9 +38,7 @@ const projectMenu = [
   { id: "ai-workflow", label: "AIUX工作流", eyebrow: "AI WORKFLOW", href: "/projects/ai-workflow", color: "#00FBD0" },
 ] as const;
 
-type NavIconProps = {
-  name: "home" | "about" | "projects" | "resume";
-};
+type NavIconProps = { name: "home" | "about" | "projects" | "resume" };
 
 function DetailMediaFigure({ media, id, isSectionStart, priority = false }: {
   media: ProjectDetailMedia;
@@ -47,70 +46,28 @@ function DetailMediaFigure({ media, id, isSectionStart, priority = false }: {
   isSectionStart?: boolean;
   priority?: boolean;
 }) {
-  const [loaded, setLoaded] = useState(false);
-  const mediaRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const element = mediaRef.current;
-    if (!element) return;
-
-    if (element instanceof HTMLImageElement && element.complete && element.naturalWidth > 0) {
-      setLoaded(true);
-    }
-    if (element instanceof HTMLVideoElement && element.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      setLoaded(true);
-    }
-
-    if (!(element instanceof HTMLVideoElement)) return;
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const play = () => {
-      if (!element.poster && element.dataset.poster) element.poster = element.dataset.poster;
-      if (element.preload === "none") {
-        element.preload = "metadata";
-        element.load();
-      }
-      if (document.hidden || reducedMotion.matches) return;
-      void element.play().catch(() => undefined);
-    };
-    const pause = () => element.pause();
-    const observer = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting ? play() : pause(),
-      { rootMargin: "700px 0px", threshold: 0.01 },
-    );
-    observer.observe(element);
-
-    const handleVisibility = () => {
-      if (document.hidden) pause();
-      else {
-        const rect = element.getBoundingClientRect();
-        if (rect.bottom > -700 && rect.top < window.innerHeight + 700) play();
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", handleVisibility);
-      pause();
-    };
-  }, [media.src]);
-
-  const videoPoster = media.kind === "video"
-    ? (media.poster ?? media.src.replace(/\.mp4$/i, "-poster.jpg"))
+  const optimized = media.kind === "image"
+    ? imageMedia(media.src, media.alt)
+    : videoMedia(media.src, media.ariaLabel, media.aspectRatio, media.poster);
+  const videoPoster = optimized.kind === "video"
+    ? (optimized.poster ?? media.src.replace(/\.mp4$/i, "-poster.jpg"))
     : undefined;
+  const aspectRatio = optimized.kind === "image"
+    ? `${optimized.width} / ${optimized.height}`
+    : optimized.aspectRatio;
+  const deferred = !priority || optimized.kind === "video";
 
   return (
     <figure
-      className={`detail-media${loaded ? " detail-media-loaded" : ""}`}
+      className="detail-media"
       id={id}
       data-detail-section={isSectionStart ? true : undefined}
-      style={media.kind === "video" && media.aspectRatio ? { aspectRatio: media.aspectRatio } : undefined}
+      data-deferred-media={deferred ? true : undefined}
+      style={aspectRatio ? { aspectRatio } : undefined}
     >
-      {media.kind === "video" ? (
+      {optimized.kind === "video" ? (
         <video
-          ref={mediaRef as React.RefObject<HTMLVideoElement>}
-          src={media.src}
-          aria-label={media.ariaLabel}
+          aria-label={optimized.ariaLabel}
           loop
           muted
           playsInline
@@ -118,27 +75,44 @@ function DetailMediaFigure({ media, id, isSectionStart, priority = false }: {
           data-poster={priority ? undefined : videoPoster}
           preload="none"
           data-viewport-video="true"
+          data-media-element="true"
           tabIndex={-1}
           controlsList="nodownload noplaybackrate noremoteplayback"
           disablePictureInPicture
-          style={media.aspectRatio ? { aspectRatio: media.aspectRatio } : undefined}
-          onContextMenu={(event) => event.preventDefault()}
-          onLoadedData={() => setLoaded(true)}
-        />
+          style={aspectRatio ? { aspectRatio } : undefined}
+        >
+          {optimized.webmSrc ? <source data-src={optimized.webmSrc} type="video/webm" /> : null}
+          <source data-src={optimized.src} type="video/mp4" />
+        </video>
       ) : (
-        <img
-          ref={mediaRef as React.RefObject<HTMLImageElement>}
-          src={media.src}
-          alt={media.alt}
-          draggable={false}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-          fetchPriority={priority ? "high" : "auto"}
-          onContextMenu={(event) => event.preventDefault()}
-          onLoad={() => setLoaded(true)}
-        />
+        <picture>
+          {optimized.avifSrc ? (
+            <source
+              {...(priority ? { srcSet: optimized.avifSrc } : { "data-srcset": optimized.avifSrc })}
+              type="image/avif"
+            />
+          ) : null}
+          {optimized.webpSrc ? (
+            <source
+              {...(priority ? { srcSet: optimized.webpSrc } : { "data-srcset": optimized.webpSrc })}
+              type="image/webp"
+            />
+          ) : null}
+          <img
+            {...(priority ? { src: optimized.src } : { "data-src": optimized.src })}
+            alt={optimized.alt}
+            width={optimized.width}
+            height={optimized.height}
+            draggable={false}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={priority ? "high" : "low"}
+            data-deferred-image={priority ? undefined : true}
+            data-media-element="true"
+          />
+        </picture>
       )}
-      {!loaded && media.kind === "image" ? <span className="detail-media-loading" aria-label="素材加载中"><i /></span> : null}
+      <span className="detail-media-loading" aria-label="素材加载中"><i /></span>
     </figure>
   );
 }
@@ -157,34 +131,6 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
     id: index === 0 ? "project-overview" : `project-section-${index}`,
     label,
   }));
-  const [activeDetail, setActiveDetail] = useState(detailSections[0].id);
-  const [toast, setToast] = useState("");
-  const toastTimer = useRef<number | null>(null);
-
-  useEffect(() => {
-    const updateActiveDetail = () => {
-      let current = detailSections[0].id;
-      detailSections.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section && section.getBoundingClientRect().top <= 230) current = id;
-      });
-      setActiveDetail(current);
-    };
-
-    updateActiveDetail();
-    window.addEventListener("scroll", updateActiveDetail, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", updateActiveDetail);
-      if (toastTimer.current) window.clearTimeout(toastTimer.current);
-    };
-  }, []);
-
-  const showToast = (message: string) => {
-    setToast(message);
-    if (toastTimer.current) window.clearTimeout(toastTimer.current);
-    toastTimer.current = window.setTimeout(() => setToast(""), 2200);
-  };
-
   const highlightIndex = config.title.indexOf(config.titleHighlight);
   const titleBefore = highlightIndex >= 0 ? config.title.slice(0, highlightIndex) : config.title;
   const titleAfter = highlightIndex >= 0 ? config.title.slice(highlightIndex + config.titleHighlight.length) : "";
@@ -206,13 +152,8 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
       <header className="site-header">
         <div className="site-header-inner">
           <a className="identity-card" href="/#cover" aria-label="岳崇政 CharonY，返回个人首页">
-            <span className="identity-avatar">
-              <img src="/assets/navigation/profile-small.png" alt="岳崇政头像" />
-            </span>
-            <span className="identity-copy">
-              <strong>岳崇政</strong>
-              <small>CharonY</small>
-            </span>
+            <span className="identity-avatar"><img src="/assets/navigation/profile-small.png" alt="岳崇政头像" /></span>
+            <span className="identity-copy"><strong>岳崇政</strong><small>CharonY</small></span>
           </a>
 
           <nav className="site-nav" aria-label="作品集导航">
@@ -220,9 +161,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             <a className="nav-link" href="/#about"><NavIcon name="about" /><span>能力一览</span></a>
             <div className="project-nav nav-link-active">
               <a className="nav-link project-nav-trigger" href="/#projects">
-                <NavIcon name="projects" />
-                <span>项目目录</span>
-                <i className="nav-caret" aria-hidden="true" />
+                <NavIcon name="projects" /><span>项目目录</span><i className="nav-caret" aria-hidden="true" />
               </a>
               <div className="project-nav-menu" aria-label="项目列表">
                 {projectMenu.map((project) => (
@@ -231,8 +170,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
               </div>
             </div>
             <a className="nav-link resume-link" href="/assets/resume/%E5%B2%B3%E5%B4%87%E6%94%BF%E7%AE%80%E5%8E%86-2026.pdf" download="岳崇政简历-2026.pdf">
-              <NavIcon name="resume" />
-              <span>下载简历</span>
+              <NavIcon name="resume" /><span>下载简历</span>
             </a>
           </nav>
         </div>
@@ -242,9 +180,10 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
         <aside className="detail-sidebar">
           <a className="detail-back" href="/#projects"><span aria-hidden="true" />返回首页</a>
           <nav className="detail-section-nav" aria-label="项目章节">
-            {detailSections.map((section) => (
+            {detailSections.map((section, index) => (
               <a
-                className={activeDetail === section.id ? "detail-nav-active" : ""}
+                className={index === 0 ? "detail-nav-active" : undefined}
+                data-detail-nav
                 href={`#${section.id}`}
                 key={section.id}
               >
@@ -263,16 +202,11 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
               {titleAfter}
             </h1>
             <p className="detail-subtitle">{config.subtitle}</p>
-
             <div className="detail-summary-grid" aria-label="项目摘要">
               {config.summaries.map((summary) => (
-                <section className="detail-summary-card" key={summary.title}>
-                  <h2>{summary.title}</h2>
-                  <p>{summary.body}</p>
-                </section>
+                <section className="detail-summary-card" key={summary.title}><h2>{summary.title}</h2><p>{summary.body}</p></section>
               ))}
             </div>
-
             {config.overviewMedia?.length ? (
               <div className="detail-media-stack detail-overview-media" aria-label="项目概览素材">
                 {config.overviewMedia.map((media, index) => (
@@ -286,7 +220,6 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             {detailSections.slice(1).flatMap((section, sectionIndex) => {
               const mediaGroup = config.sectionMedia?.[section.label]
                 ?? (config.media?.[sectionIndex] ? [config.media[sectionIndex]] : []);
-
               return mediaGroup.map((media, mediaIndex) => (
                 <DetailMediaFigure
                   id={mediaIndex === 0 ? section.id : undefined}
@@ -303,28 +236,17 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             <h2 id="related-projects-title">切换到其他作品</h2>
             <div className="related-projects-grid">
               {relatedProjects.map((project, index) => (
-                <a
-                  className="related-project-card"
-                  href={project.href}
-                  key={project.id}
-                  style={{ "--related-accent": project.color } as CSSProperties}
-                >
+                <a className="related-project-card" href={project.href} key={project.id} style={{ "--related-accent": project.color } as CSSProperties}>
                   <span className="related-project-index">0{index + 1}</span>
                   <span className="related-project-arrow" aria-hidden="true">↗</span>
-                  <span className="related-project-copy">
-                    <small>{project.eyebrow}</small>
-                    <strong>{project.label}</strong>
-                  </span>
+                  <span className="related-project-copy"><small>{project.eyebrow}</small><strong>{project.label}</strong></span>
                 </a>
               ))}
             </div>
           </section>
         </article>
       </div>
-
-      <div className={`toast ${toast ? "toast-visible" : ""}`} role="status" aria-live="polite">
-        <span aria-hidden="true">✓</span>{toast}
-      </div>
+      <ProjectDetailClient />
     </main>
   );
 }

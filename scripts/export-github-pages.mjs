@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import worker from "../dist/server/index.js";
@@ -22,6 +22,27 @@ await rm(outputPath, { recursive: true, force: true });
 await mkdir(outputPath, { recursive: true });
 await cp(new URL("../dist/client/", import.meta.url), output, { recursive: true });
 await writeFile(join(outputPath, ".nojekyll"), "");
+
+async function removeMatching(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  await Promise.all(entries.map(async (entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return removeMatching(path);
+    if (entry.name.endsWith(".source.mp4")) await rm(path);
+  }));
+}
+
+await removeMatching(outputPath);
+await Promise.all([
+  ".assetsignore",
+  ".vite",
+  "_headers",
+  "favicon.svg",
+  "file.svg",
+  "globe.svg",
+  "vinext-client-entry-manifest.json",
+  "window.svg",
+].map((entry) => rm(join(outputPath, entry), { recursive: true, force: true })));
 
 for (const [pathname, file] of routes) {
   const response = await worker.fetch(
