@@ -53,12 +53,12 @@ export function ProjectDetailClient() {
 
     const videos = [...document.querySelectorAll<HTMLVideoElement>("video[data-viewport-video]")];
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const isNearViewport = (video: HTMLVideoElement) => {
+    const isInViewport = (video: HTMLVideoElement) => {
       const rect = video.getBoundingClientRect();
-      return rect.bottom > -MEDIA_PRELOAD_DISTANCE && rect.top < window.innerHeight + MEDIA_PRELOAD_DISTANCE;
+      return rect.bottom > 0 && rect.top < window.innerHeight;
     };
-    const playIfNearViewport = (video: HTMLVideoElement) => {
-      if (!isNearViewport(video)) return;
+    const playIfVisible = (video: HTMLVideoElement) => {
+      if (!isInViewport(video)) return;
       if (!video.poster && video.dataset.poster) video.poster = video.dataset.poster;
       loadSources(video.closest("figure") ?? video);
       if (document.hidden || reducedMotion.matches) return;
@@ -69,29 +69,44 @@ export function ProjectDetailClient() {
     };
     const handleCanPlay = (event: Event) => {
       const video = event.currentTarget as HTMLVideoElement;
-      if (video.dataset.playWhenReady === "true") playIfNearViewport(video);
+      if (video.dataset.playWhenReady === "true") playIfVisible(video);
     };
     videos.forEach((video) => video.addEventListener("canplay", handleCanPlay));
+    let playbackFrame = 0;
+    const syncVideoPlayback = () => {
+      window.cancelAnimationFrame(playbackFrame);
+      playbackFrame = window.requestAnimationFrame(() => {
+        videos.forEach((video) => {
+          if (isInViewport(video)) {
+            playIfVisible(video);
+          } else {
+            delete video.dataset.playWhenReady;
+            video.pause();
+          }
+        });
+      });
+    };
     const videoObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const video = entry.target as HTMLVideoElement;
           if (entry.isIntersecting) {
-            playIfNearViewport(video);
+            playIfVisible(video);
           } else {
             delete video.dataset.playWhenReady;
             video.pause();
           }
         });
       },
-      { rootMargin: `${MEDIA_PRELOAD_DISTANCE}px 0px`, threshold: 0.01 },
+      { threshold: 0.01 },
     );
     videos.forEach((video) => videoObserver.observe(video));
+    window.addEventListener("scroll", syncVideoPlayback, { passive: true });
     const handlePlaybackPreference = () => {
       if (document.hidden || reducedMotion.matches) {
         videos.forEach((video) => video.pause());
       } else {
-        videos.forEach(playIfNearViewport);
+        videos.forEach(playIfVisible);
       }
     };
     document.addEventListener("visibilitychange", handlePlaybackPreference);
@@ -113,6 +128,8 @@ export function ProjectDetailClient() {
     return () => {
       mediaObserver.disconnect();
       videoObserver.disconnect();
+      window.cancelAnimationFrame(playbackFrame);
+      window.removeEventListener("scroll", syncVideoPlayback);
       document.removeEventListener("visibilitychange", handlePlaybackPreference);
       reducedMotion.removeEventListener("change", handlePlaybackPreference);
       window.removeEventListener("scroll", updateActiveDetail);

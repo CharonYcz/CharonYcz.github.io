@@ -2,22 +2,19 @@
 
 import { useEffect } from "react";
 
-const hoverImageSelector = "img[data-hover-src]";
+const hoverImageSelector = ".project-card-hover";
 
 function loadHoverImage(card: Element) {
   const image = card.querySelector<HTMLImageElement>(hoverImageSelector);
-  if (!image?.dataset.hoverSrc) return;
+  if (!image) return;
   const markHoverReady = () => {
     void image.decode().catch(() => undefined).then(() => card.classList.add("project-card-hover-ready"));
   };
-  image.addEventListener("load", markHoverReady, { once: true });
-  card.querySelectorAll<HTMLElement>("source[data-hover-srcset]").forEach((source) => {
-    if (source.dataset.hoverSrcset) source.setAttribute("srcset", source.dataset.hoverSrcset);
-    delete source.dataset.hoverSrcset;
-  });
-  image.src = image.dataset.hoverSrc;
-  delete image.dataset.hoverSrc;
-  if (image.complete && image.naturalWidth > 0) markHoverReady();
+  if (image.complete && image.naturalWidth > 0) {
+    markHoverReady();
+  } else {
+    image.addEventListener("load", markHoverReady, { once: true });
+  }
 }
 
 export function PortfolioInteractions() {
@@ -91,23 +88,12 @@ export function PortfolioInteractions() {
     };
 
     const projectCards = [...document.querySelectorAll<HTMLElement>("[data-project-card]")];
-    const loadFromEvent = (event: Event) => {
-      const card = (event.target as Element | null)?.closest("[data-project-card]");
-      if (card) loadHoverImage(card);
-    };
-    projectCards.forEach((card) => {
-      card.addEventListener("pointerenter", loadFromEvent, { once: true });
-      card.addEventListener("focusin", loadFromEvent, { once: true });
-    });
+    projectCards.forEach(loadHoverImage);
     document.addEventListener("click", onClick);
     return () => {
       pictureObserver.disconnect();
       observer.disconnect();
       document.removeEventListener("click", onClick);
-      projectCards.forEach((card) => {
-        card.removeEventListener("pointerenter", loadFromEvent);
-        card.removeEventListener("focusin", loadFromEvent);
-      });
       window.clearTimeout(toastTimer);
     };
   }, []);

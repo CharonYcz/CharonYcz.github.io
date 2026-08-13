@@ -63,6 +63,7 @@ test("server-renders the experience design detail page", async () => {
   assert.match(detailClient, /IntersectionObserver/);
   assert.match(detailClient, /MEDIA_PRELOAD_DISTANCE\s*=\s*1600/);
   assert.match(detailClient, /addEventListener\("canplay", handleCanPlay\)/);
+  assert.match(detailClient, /addEventListener\("scroll", syncVideoPlayback/);
   assert.match(detailClient, /sourceChanged/);
 });
 
@@ -97,7 +98,8 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(page, /个人首页/);
   assert.match(page, /下载简历/);
   assert.match(page, /mouse-scroll/);
-  assert.match(page, /data-hover-src/);
+  assert.match(page, /project-card-hover/);
+  assert.match(page, /loading="eager"/);
   assert.match(hero, /setTimeout\(load, 300\)/);
   assert.match(hero, /preload="none"/);
   assert.match(pointer, /requestRender/);
