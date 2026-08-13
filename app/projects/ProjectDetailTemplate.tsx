@@ -4,7 +4,7 @@ import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 export type ProjectDetailMedia =
   | { kind: "image"; src: string; alt: string }
-  | { kind: "video"; src: string; ariaLabel: string };
+  | { kind: "video"; src: string; ariaLabel: string; poster?: string; aspectRatio?: string };
 
 export type ProjectDetailConfig = {
   projectId: "experience" | "enterprise" | "ip" | "ai-workflow";
@@ -41,10 +41,11 @@ type NavIconProps = {
   name: "home" | "about" | "projects" | "resume";
 };
 
-function DetailMediaFigure({ media, id, isSectionStart }: {
+function DetailMediaFigure({ media, id, isSectionStart, priority = false }: {
   media: ProjectDetailMedia;
   id?: string;
   isSectionStart?: boolean;
+  priority?: boolean;
 }) {
   const [loaded, setLoaded] = useState(false);
   const mediaRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
@@ -59,34 +60,85 @@ function DetailMediaFigure({ media, id, isSectionStart }: {
     if (element instanceof HTMLVideoElement && element.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
       setLoaded(true);
     }
+
+    if (!(element instanceof HTMLVideoElement)) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const play = () => {
+      if (!element.poster && element.dataset.poster) element.poster = element.dataset.poster;
+      if (element.preload === "none") {
+        element.preload = "metadata";
+        element.load();
+      }
+      if (document.hidden || reducedMotion.matches) return;
+      void element.play().catch(() => undefined);
+    };
+    const pause = () => element.pause();
+    const observer = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting ? play() : pause(),
+      { rootMargin: "700px 0px", threshold: 0.01 },
+    );
+    observer.observe(element);
+
+    const handleVisibility = () => {
+      if (document.hidden) pause();
+      else {
+        const rect = element.getBoundingClientRect();
+        if (rect.bottom > -700 && rect.top < window.innerHeight + 700) play();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
+      pause();
+    };
   }, [media.src]);
+
+  const videoPoster = media.kind === "video"
+    ? (media.poster ?? media.src.replace(/\.mp4$/i, "-poster.jpg"))
+    : undefined;
 
   return (
     <figure
       className={`detail-media${loaded ? " detail-media-loaded" : ""}`}
       id={id}
       data-detail-section={isSectionStart ? true : undefined}
+      style={media.kind === "video" && media.aspectRatio ? { aspectRatio: media.aspectRatio } : undefined}
     >
       {media.kind === "video" ? (
         <video
           ref={mediaRef as React.RefObject<HTMLVideoElement>}
           src={media.src}
           aria-label={media.ariaLabel}
-          autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
+          poster={priority ? videoPoster : undefined}
+          data-poster={priority ? undefined : videoPoster}
+          preload="none"
+          data-viewport-video="true"
           tabIndex={-1}
           controlsList="nodownload noplaybackrate noremoteplayback"
           disablePictureInPicture
+          style={media.aspectRatio ? { aspectRatio: media.aspectRatio } : undefined}
           onContextMenu={(event) => event.preventDefault()}
-          onCanPlay={() => setLoaded(true)}
+          onLoadedData={() => setLoaded(true)}
         />
       ) : (
-        <img ref={mediaRef as React.RefObject<HTMLImageElement>} src={media.src} alt={media.alt} draggable={false} onContextMenu={(event) => event.preventDefault()} onLoad={() => setLoaded(true)} />
+        <img
+          ref={mediaRef as React.RefObject<HTMLImageElement>}
+          src={media.src}
+          alt={media.alt}
+          draggable={false}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
+          onContextMenu={(event) => event.preventDefault()}
+          onLoad={() => setLoaded(true)}
+        />
       )}
-      {!loaded ? <span className="detail-media-loading" aria-label="素材加载中"><i /></span> : null}
+      {!loaded && media.kind === "image" ? <span className="detail-media-loading" aria-label="素材加载中"><i /></span> : null}
     </figure>
   );
 }
@@ -155,7 +207,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
         <div className="site-header-inner">
           <a className="identity-card" href="/#cover" aria-label="岳崇政 CharonY，返回个人首页">
             <span className="identity-avatar">
-              <img src="/assets/navigation/profile.png" alt="岳崇政头像" />
+              <img src="/assets/navigation/profile-small.png" alt="岳崇政头像" />
             </span>
             <span className="identity-copy">
               <strong>岳崇政</strong>
@@ -180,7 +232,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             </div>
             <a className="nav-link resume-link" href="/assets/resume/%E5%B2%B3%E5%B4%87%E6%94%BF%E7%AE%80%E5%8E%86-2026.pdf" download="岳崇政简历-2026.pdf">
               <NavIcon name="resume" />
-              <span>在线简历</span>
+              <span>下载简历</span>
             </a>
           </nav>
         </div>
@@ -224,7 +276,7 @@ export function ProjectDetailTemplate({ config }: { config: ProjectDetailConfig 
             {config.overviewMedia?.length ? (
               <div className="detail-media-stack detail-overview-media" aria-label="项目概览素材">
                 {config.overviewMedia.map((media, index) => (
-                  <DetailMediaFigure media={media} key={`${media.src}-${index}`} />
+                  <DetailMediaFigure media={media} priority={index === 0} key={`${media.src}-${index}`} />
                 ))}
               </div>
             ) : null}

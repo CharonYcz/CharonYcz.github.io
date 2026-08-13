@@ -50,7 +50,9 @@ test("server-renders the experience design detail page", async () => {
   assert.match(html, /06-motion\/04\.mp4/);
 
   const detailPage = await readFile(new URL("../app/projects/ProjectDetailTemplate.tsx", import.meta.url), "utf8");
-  assert.match(detailPage, /autoPlay/);
+  assert.match(detailPage, /data-viewport-video/);
+  assert.match(detailPage, /preload="none"/);
+  assert.match(detailPage, /poster=/);
   assert.match(detailPage, /loop/);
   assert.match(detailPage, /muted/);
 });
@@ -80,7 +82,7 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(page, /手机号已复制/);
   assert.match(page, /project-nav-menu/);
   assert.match(page, /个人首页/);
-  assert.match(page, /在线简历/);
+  assert.match(page, /下载简历/);
   assert.match(page, /mouse-scroll/);
   assert.match(css, /scroll-snap-type:\s*y mandatory/);
   assert.match(css, /min-width:\s*1180px/);

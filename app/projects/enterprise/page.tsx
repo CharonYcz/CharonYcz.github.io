@@ -38,7 +38,7 @@ const config: ProjectDetailConfig = {
     "方案输出思路": [
       { kind: "image", src: "/assets/details/enterprise/04-delivery/01.png", alt: "方案输出思路素材一" },
       { kind: "image", src: "/assets/details/enterprise/04-delivery/02.png", alt: "方案输出思路素材二" },
-      { kind: "video", src: "/assets/details/enterprise/04-delivery/03.mp4", ariaLabel: "方案输出思路素材三" },
+      { kind: "video", src: "/assets/details/enterprise/04-delivery/03.mp4", ariaLabel: "方案输出思路素材三", aspectRatio: "1120 / 629" },
       { kind: "image", src: "/assets/details/enterprise/04-delivery/04.png", alt: "方案输出思路素材四" },
       { kind: "image", src: "/assets/details/enterprise/04-delivery/05.png", alt: "方案输出思路素材五" },
       { kind: "image", src: "/assets/details/enterprise/04-delivery/06.png", alt: "方案输出思路素材六" },

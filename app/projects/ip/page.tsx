@@ -24,7 +24,7 @@ const config: ProjectDetailConfig = {
     { title: "资产价值", body: "形成可复用的标准资产，支持产品、运营与传播等多触点快速落地。" },
   ],
   overviewMedia: [
-    { kind: "video", src: "/assets/details/ip/01-analysis/01.mp4", ariaLabel: "IP需求分析素材一" },
+    { kind: "video", src: "/assets/details/ip/01-analysis/01.mp4", ariaLabel: "IP需求分析素材一", aspectRatio: "934 / 1280" },
   ],
   sectionMedia: {
     "用研与竞品": [
@@ -38,18 +38,18 @@ const config: ProjectDetailConfig = {
     "完整资产输出": [
       { kind: "image", src: "/assets/details/ip/04-assets/01.png", alt: "完整资产输出素材一" },
       { kind: "image", src: "/assets/details/ip/04-assets/02.png", alt: "完整资产输出素材二" },
-      { kind: "video", src: "/assets/details/ip/04-assets/03.mp4", ariaLabel: "完整资产输出素材三" },
+      { kind: "video", src: "/assets/details/ip/04-assets/03.mp4", ariaLabel: "完整资产输出素材三", aspectRatio: "1120 / 273" },
       { kind: "image", src: "/assets/details/ip/04-assets/04.png", alt: "完整资产输出素材四" },
       { kind: "image", src: "/assets/details/ip/04-assets/05.png", alt: "完整资产输出素材五" },
-      { kind: "video", src: "/assets/details/ip/04-assets/06.mp4", ariaLabel: "完整资产输出素材六" },
+      { kind: "video", src: "/assets/details/ip/04-assets/06.mp4", ariaLabel: "完整资产输出素材六", aspectRatio: "1120 / 809" },
       { kind: "image", src: "/assets/details/ip/04-assets/07.png", alt: "完整资产输出素材七" },
     ],
     "案例与复盘": [
       { kind: "image", src: "/assets/details/ip/05-review/01.png", alt: "案例与复盘素材一" },
       { kind: "image", src: "/assets/details/ip/05-review/02.png", alt: "案例与复盘素材二" },
-      { kind: "video", src: "/assets/details/ip/05-review/03.mp4", ariaLabel: "案例与复盘素材三" },
+      { kind: "video", src: "/assets/details/ip/05-review/03.mp4", ariaLabel: "案例与复盘素材三", aspectRatio: "1120 / 565" },
       { kind: "image", src: "/assets/details/ip/05-review/04.png", alt: "案例与复盘素材四" },
-      { kind: "video", src: "/assets/details/ip/05-review/05.mp4", ariaLabel: "案例与复盘素材五" },
+      { kind: "video", src: "/assets/details/ip/05-review/05.mp4", ariaLabel: "案例与复盘素材五", aspectRatio: "1120 / 565" },
       { kind: "image", src: "/assets/details/ip/05-review/06.png", alt: "案例与复盘素材六" },
     ],
   },

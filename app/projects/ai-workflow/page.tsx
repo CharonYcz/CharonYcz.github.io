@@ -29,12 +29,12 @@ const config: ProjectDetailConfig = {
   sectionMedia: {
     "设计思路": [
       { kind: "image", src: "/assets/details/ai-workflow/02-thinking/01.png", alt: "设计思路素材一" },
-      { kind: "video", src: "/assets/details/ai-workflow/02-thinking/02.mp4", ariaLabel: "设计思路素材二" },
+      { kind: "video", src: "/assets/details/ai-workflow/02-thinking/02.mp4", ariaLabel: "设计思路素材二", aspectRatio: "1120 / 448" },
       { kind: "image", src: "/assets/details/ai-workflow/02-thinking/03.png", alt: "设计思路素材三" },
     ],
     "工作流搭建": [
       { kind: "image", src: "/assets/details/ai-workflow/03-workflow/01.png", alt: "工作流搭建素材一" },
-      { kind: "video", src: "/assets/details/ai-workflow/03-workflow/02.mp4", ariaLabel: "工作流搭建素材二" },
+      { kind: "video", src: "/assets/details/ai-workflow/03-workflow/02.mp4", ariaLabel: "工作流搭建素材二", aspectRatio: "1120 / 569" },
       { kind: "image", src: "/assets/details/ai-workflow/03-workflow/03.png", alt: "工作流搭建素材三" },
     ],
     "文案输出": [
@@ -43,7 +43,7 @@ const config: ProjectDetailConfig = {
     ],
     "沉淀与迭代": [
       { kind: "image", src: "/assets/details/ai-workflow/05-iteration/01.png", alt: "沉淀与迭代素材一" },
-      { kind: "video", src: "/assets/details/ai-workflow/05-iteration/02.mp4", ariaLabel: "沉淀与迭代素材二" },
+      { kind: "video", src: "/assets/details/ai-workflow/05-iteration/02.mp4", ariaLabel: "沉淀与迭代素材二", aspectRatio: "1120 / 576" },
     ],
   },
 };

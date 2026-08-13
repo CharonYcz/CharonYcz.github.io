@@ -24,14 +24,14 @@ const config: ProjectDetailConfig = {
     { title: "项目价值", body: "降低用户理解与操作成本，增强履约过程中的确定感，同时提升服务体验的一致性。" },
   ],
   overviewMedia: [
-    { kind: "video", src: "/assets/details/experience/01-overview/01.mp4", ariaLabel: "订单进行中项目概览视频" },
+    { kind: "video", src: "/assets/details/experience/01-overview/01.mp4", ariaLabel: "订单进行中项目概览视频", aspectRatio: "1120 / 875" },
     { kind: "image", src: "/assets/details/experience/01-overview/02.png", alt: "订单进行中项目概览素材二" },
     { kind: "image", src: "/assets/details/experience/01-overview/03.png", alt: "订单进行中项目概览素材三" },
   ],
   sectionMedia: {
     "数据洞察": [
       { kind: "image", src: "/assets/details/experience/02-insights/01.png", alt: "数据洞察素材一" },
-      { kind: "video", src: "/assets/details/experience/02-insights/02.mp4", ariaLabel: "数据洞察素材二" },
+      { kind: "video", src: "/assets/details/experience/02-insights/02.mp4", ariaLabel: "数据洞察素材二", aspectRatio: "1120 / 306" },
       { kind: "image", src: "/assets/details/experience/02-insights/03.png", alt: "数据洞察素材三" },
     ],
     "体验思考": [
@@ -41,7 +41,7 @@ const config: ProjectDetailConfig = {
     ],
     "链路优化": [
       { kind: "image", src: "/assets/details/experience/04-flow/01.png", alt: "链路优化素材一" },
-      { kind: "video", src: "/assets/details/experience/04-flow/02.mp4", ariaLabel: "链路优化素材二" },
+      { kind: "video", src: "/assets/details/experience/04-flow/02.mp4", ariaLabel: "链路优化素材二", aspectRatio: "1120 / 788" },
       { kind: "image", src: "/assets/details/experience/04-flow/03.png", alt: "链路优化素材三" },
     ],
     "多业务适配": [
@@ -55,9 +55,9 @@ const config: ProjectDetailConfig = {
     ],
     "动效和视觉": [
       { kind: "image", src: "/assets/details/experience/06-motion/01.png", alt: "动效和视觉素材一" },
-      { kind: "video", src: "/assets/details/experience/06-motion/02.mp4", ariaLabel: "动效和视觉素材二" },
+      { kind: "video", src: "/assets/details/experience/06-motion/02.mp4", ariaLabel: "动效和视觉素材二", aspectRatio: "1120 / 656" },
       { kind: "image", src: "/assets/details/experience/06-motion/03.png", alt: "动效和视觉素材三" },
-      { kind: "video", src: "/assets/details/experience/06-motion/04.mp4", ariaLabel: "动效和视觉素材四" },
+      { kind: "video", src: "/assets/details/experience/06-motion/04.mp4", ariaLabel: "动效和视觉素材四", aspectRatio: "1120 / 525" },
       { kind: "image", src: "/assets/details/experience/06-motion/05.png", alt: "动效和视觉素材五" },
     ],
     "项目复盘": [

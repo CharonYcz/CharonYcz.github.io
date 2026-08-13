@@ -106,7 +106,7 @@ export default function Home() {
         <div className="site-header-inner">
           <a className="identity-card" href="#cover" aria-label="岳崇政 CharonY，返回个人首页">
             <span className="identity-avatar">
-              <img src="/assets/navigation/profile.png" alt="岳崇政头像" />
+              <img src="/assets/navigation/profile-small.png" alt="岳崇政头像" />
             </span>
             <span className="identity-copy">
               <strong>岳崇政</strong>
@@ -140,7 +140,7 @@ export default function Home() {
             </div>
             <a className="nav-link resume-link" href="/assets/resume/%E5%B2%B3%E5%B4%87%E6%94%BF%E7%AE%80%E5%8E%86-2026.pdf" download="岳崇政简历-2026.pdf">
               <NavIcon name="resume" />
-              <span>在线简历</span>
+              <span>下载简历</span>
             </a>
           </nav>
         </div>
@@ -184,6 +184,8 @@ export default function Home() {
             className="stage-background"
             src="/assets/about/background.png"
             alt="岳崇政个人介绍版面与西装肖像"
+            loading="lazy"
+            decoding="async"
           />
 
           <p className="about-copy">
@@ -238,18 +240,18 @@ export default function Home() {
               }}
               aria-label={`查看${project.label}项目`}
             >
-              <img className="project-card-default" src={project.image} alt="" />
-              <img className="project-card-hover" src={project.hoverImage} alt="" />
+              <img className="project-card-default" src={project.image} alt="" loading="lazy" decoding="async" />
+              <img className="project-card-hover" src={project.hoverImage} alt="" loading="lazy" decoding="async" />
             </a>
           ))}
 
           <div className="directory-panel" aria-hidden="true">
-            <img src="/assets/projects/directory.png" alt="" />
+            <img src="/assets/projects/directory.png" alt="" loading="lazy" decoding="async" />
           </div>
           <p className="directory-copy">
             本作品集围绕真实业务中的体验问题展开，收录体验设计、AI工作流、中后台与IP设计四个方向。通过用户研究、信息架构、交互视觉与AI辅助工作流，呈现我从发现问题、制定策略到推动落地与验证结果的完整设计过程。
           </p>
-          <img className="projects-topline" src="/assets/projects/topline.png" alt="Lucky 2026 作品集信息" />
+          <img className="projects-topline" src="/assets/projects/topline.png" alt="Lucky 2026 作品集信息" loading="lazy" decoding="async" />
         </div>
       </section>
 
