@@ -21,6 +21,7 @@ const execution = { waitUntil() {}, passThroughOnException() {} };
 await rm(outputPath, { recursive: true, force: true });
 await mkdir(outputPath, { recursive: true });
 await cp(new URL("../dist/client/", import.meta.url), output, { recursive: true });
+await writeFile(join(outputPath, ".nojekyll"), "");
 
 for (const [pathname, file] of routes) {
   const response = await worker.fetch(
