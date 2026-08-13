@@ -10,8 +10,28 @@
     "file": "_next/static/chunks/rolldown-runtime-C60lm6uB.js",
     "name": "rolldown-runtime"
   },
+  "app/MediaProtection.tsx": {
+    "file": "_next/static/chunks/MediaProtection-BB6VM2I8.js",
+    "name": "MediaProtection",
+    "src": "app/MediaProtection.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-BgSIrAUN.js"
+    ]
+  },
+  "app/PointerEffects.tsx": {
+    "file": "_next/static/chunks/PointerEffects-BYppLltp.js",
+    "name": "PointerEffects",
+    "src": "app/PointerEffects.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_rolldown-runtime-C60lm6uB.js",
+      "_framework-BgSIrAUN.js"
+    ]
+  },
   "app/page.tsx": {
-    "file": "_next/static/chunks/page-Cua0WmgZ.js",
+    "file": "_next/static/chunks/page-trM0IZ8G.js",
     "name": "page",
     "src": "app/page.tsx",
     "isDynamicEntry": true,
@@ -21,7 +41,7 @@
     ]
   },
   "app/projects/ProjectDetailTemplate.tsx": {
-    "file": "_next/static/chunks/ProjectDetailTemplate-BcekXODt.js",
+    "file": "_next/static/chunks/ProjectDetailTemplate-DGb6BPBM.js",
     "name": "ProjectDetailTemplate",
     "src": "app/projects/ProjectDetailTemplate.tsx",
     "isDynamicEntry": true,
@@ -31,7 +51,7 @@
     ]
   },
   "node_modules/.pnpm/vinext@1.0.0-beta.2_@vitejs+plugin-react@6.0.2_vite@8.0.13_@types+node@22.19.19_esbuild_7fe79fadf133265e71acdc594a2298fb/node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "_next/static/chunks/layout-segment-context-BlG5itrl.js",
+    "file": "_next/static/chunks/layout-segment-context-yA0NU-mS.js",
     "name": "layout-segment-context",
     "src": "node_modules/.pnpm/vinext@1.0.0-beta.2_@vitejs+plugin-react@6.0.2_vite@8.0.13_@types+node@22.19.19_esbuild_7fe79fadf133265e71acdc594a2298fb/node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
@@ -42,7 +62,7 @@
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-61D-HBuv.js",
+    "file": "_next/static/chunks/index-Bz2wdZ7Z.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
@@ -51,6 +71,8 @@
       "_framework-BgSIrAUN.js"
     ],
     "dynamicImports": [
+      "app/PointerEffects.tsx",
+      "app/MediaProtection.tsx",
       "app/projects/ProjectDetailTemplate.tsx",
       "virtual:vinext-app-browser-entry",
       "app/page.tsx",
