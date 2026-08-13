@@ -81,7 +81,6 @@ function DetailMediaFigure({ media, id, isSectionStart, priority = false }: {
           disablePictureInPicture
           style={aspectRatio ? { aspectRatio } : undefined}
         >
-          {optimized.webmSrc ? <source data-src={optimized.webmSrc} type="video/webm" /> : null}
           <source data-src={optimized.src} type="video/mp4" />
         </video>
       ) : (

@@ -2,18 +2,27 @@
 
 import { useEffect } from "react";
 
+const MEDIA_PRELOAD_DISTANCE = 1600;
+
 const loadSources = (container: Element) => {
+  let sourceChanged = false;
   container.querySelectorAll<HTMLElement>("[data-srcset]").forEach((element) => {
-    if (element.dataset.srcset) element.setAttribute("srcset", element.dataset.srcset);
+    if (element.dataset.srcset) {
+      element.setAttribute("srcset", element.dataset.srcset);
+      sourceChanged = true;
+    }
     delete element.dataset.srcset;
   });
   container.querySelectorAll<HTMLElement>("[data-src]").forEach((element) => {
-    if (element.dataset.src) element.setAttribute("src", element.dataset.src);
+    if (element.dataset.src) {
+      element.setAttribute("src", element.dataset.src);
+      sourceChanged = true;
+    }
     delete element.dataset.src;
   });
   const image = container.querySelector<HTMLImageElement>("img[data-deferred-image]");
   if (image) image.dataset.requested = "true";
-  container.querySelector<HTMLVideoElement>("video")?.load();
+  if (sourceChanged) container.querySelector<HTMLVideoElement>("video")?.load();
 };
 
 export function ProjectDetailClient() {
@@ -38,19 +47,31 @@ export function ProjectDetailClient() {
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "700px 0px", threshold: 0.01 },
+      { rootMargin: `${MEDIA_PRELOAD_DISTANCE}px 0px`, threshold: 0.01 },
     );
     figures.forEach((figure) => mediaObserver.observe(figure));
 
     const videos = [...document.querySelectorAll<HTMLVideoElement>("video[data-viewport-video]")];
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const playIfNearViewport = (video: HTMLVideoElement) => {
+    const isNearViewport = (video: HTMLVideoElement) => {
       const rect = video.getBoundingClientRect();
-      if (rect.bottom <= -700 || rect.top >= window.innerHeight + 700) return;
-      loadSources(video.closest("figure") ?? video);
-      if (!video.poster && video.dataset.poster) video.poster = video.dataset.poster;
-      if (!document.hidden && !reducedMotion.matches) void video.play().catch(() => undefined);
+      return rect.bottom > -MEDIA_PRELOAD_DISTANCE && rect.top < window.innerHeight + MEDIA_PRELOAD_DISTANCE;
     };
+    const playIfNearViewport = (video: HTMLVideoElement) => {
+      if (!isNearViewport(video)) return;
+      if (!video.poster && video.dataset.poster) video.poster = video.dataset.poster;
+      loadSources(video.closest("figure") ?? video);
+      if (document.hidden || reducedMotion.matches) return;
+      video.dataset.playWhenReady = "true";
+      if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
+      delete video.dataset.playWhenReady;
+      void video.play().catch(() => undefined);
+    };
+    const handleCanPlay = (event: Event) => {
+      const video = event.currentTarget as HTMLVideoElement;
+      if (video.dataset.playWhenReady === "true") playIfNearViewport(video);
+    };
+    videos.forEach((video) => video.addEventListener("canplay", handleCanPlay));
     const videoObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -58,11 +79,12 @@ export function ProjectDetailClient() {
           if (entry.isIntersecting) {
             playIfNearViewport(video);
           } else {
+            delete video.dataset.playWhenReady;
             video.pause();
           }
         });
       },
-      { rootMargin: "700px 0px", threshold: 0.01 },
+      { rootMargin: `${MEDIA_PRELOAD_DISTANCE}px 0px`, threshold: 0.01 },
     );
     videos.forEach((video) => videoObserver.observe(video));
     const handlePlaybackPreference = () => {
@@ -95,6 +117,7 @@ export function ProjectDetailClient() {
       reducedMotion.removeEventListener("change", handlePlaybackPreference);
       window.removeEventListener("scroll", updateActiveDetail);
       videos.forEach((video) => video.pause());
+      videos.forEach((video) => video.removeEventListener("canplay", handleCanPlay));
       mediaElements.forEach((element) => element.removeEventListener(element instanceof HTMLVideoElement ? "loadeddata" : "load", markLoaded));
     };
   }, []);

@@ -57,10 +57,13 @@ test("server-renders the experience design detail page", async () => {
   assert.match(detailPage, /loop/);
   assert.match(detailPage, /muted/);
   assert.match(detailPage, /data-src=/);
+  assert.doesNotMatch(detailPage, /video\/webm/);
   assert.match(detailPage, /image\/avif/);
   assert.match(detailPage, /image\/webp/);
   assert.match(detailClient, /IntersectionObserver/);
-  assert.match(detailClient, /rootMargin:\s*"700px 0px"/);
+  assert.match(detailClient, /MEDIA_PRELOAD_DISTANCE\s*=\s*1600/);
+  assert.match(detailClient, /addEventListener\("canplay", handleCanPlay\)/);
+  assert.match(detailClient, /sourceChanged/);
 });
 
 test("server-renders the other project detail pages", async () => {
@@ -108,7 +111,7 @@ test("keeps the requested homepage interactions in the client source", async () 
   assert.match(css, /padding:\s*0 48px/);
   assert.match(css, /\.site-header::before/);
   assert.match(css, /backdrop-filter:\s*blur\(18px\)/);
-  assert.match(css, /project-card:hover/);
+  assert.match(css, /project-card-hover-ready:hover/);
   assert.match(css, /grid-template-columns:\s*220px minmax\(800px, 1440px\)/);
   assert.match(css, /max-width:\s*1752px/);
   assert.match(css, /padding:\s*144px 48px 120px/);

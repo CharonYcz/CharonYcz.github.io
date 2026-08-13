@@ -602,34 +602,26 @@ picture.stage-background-picture > .stage-background {
   opacity: 1;
 }
 
-.project-card-hover {
-  opacity: 0;
-  transition: opacity 220ms ease, transform 320ms ease;
-}
-
 .project-card-hover-picture {
   opacity: 0;
   transition: opacity 220ms ease, transform 320ms ease;
 }
 
-.project-card-default {
+.project-card-default-picture {
   opacity: 1;
-  transition: opacity 220ms ease;
+  transition: opacity 0ms linear;
 }
 
-.project-card:hover .project-card-hover,
-.project-card:focus-visible .project-card-hover,
-.project-card:hover .project-card-hover-picture,
-.project-card:focus-visible .project-card-hover-picture {
+.project-card-hover-ready:hover .project-card-hover-picture,
+.project-card-hover-ready:focus-visible .project-card-hover-picture {
   opacity: 1;
   transform: scale(1.006);
 }
 
-.project-card:hover .project-card-default,
-.project-card:focus-visible .project-card-default,
-.project-card:hover .project-card-default-picture,
-.project-card:focus-visible .project-card-default-picture {
+.project-card-hover-ready:hover .project-card-default-picture,
+.project-card-hover-ready:focus-visible .project-card-default-picture {
   opacity: 0;
+  transition-delay: 220ms;
 }
 
 .project-card:focus-visible {

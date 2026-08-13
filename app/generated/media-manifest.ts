@@ -449,59 +449,45 @@ export const videoManifest = {
     "webmSrc": "/assets/cover/ambient-desktop-loop.webm"
   },
   "/assets/details/ai-workflow/02-thinking/02.mp4": {
-    "src": "/assets/details/ai-workflow/02-thinking/02.mp4",
-    "webmSrc": "/assets/details/ai-workflow/02-thinking/02.webm"
+    "src": "/assets/details/ai-workflow/02-thinking/02.mp4"
   },
   "/assets/details/ai-workflow/03-workflow/02.mp4": {
-    "src": "/assets/details/ai-workflow/03-workflow/02.mp4",
-    "webmSrc": "/assets/details/ai-workflow/03-workflow/02.webm"
+    "src": "/assets/details/ai-workflow/03-workflow/02.mp4"
   },
   "/assets/details/ai-workflow/05-iteration/02.mp4": {
-    "src": "/assets/details/ai-workflow/05-iteration/02.mp4",
-    "webmSrc": "/assets/details/ai-workflow/05-iteration/02.webm"
+    "src": "/assets/details/ai-workflow/05-iteration/02.mp4"
   },
   "/assets/details/enterprise/04-delivery/03.mp4": {
-    "src": "/assets/details/enterprise/04-delivery/03.mp4",
-    "webmSrc": "/assets/details/enterprise/04-delivery/03.webm"
+    "src": "/assets/details/enterprise/04-delivery/03.mp4"
   },
   "/assets/details/experience/01-overview/01.mp4": {
-    "src": "/assets/details/experience/01-overview/01.mp4",
-    "webmSrc": "/assets/details/experience/01-overview/01.webm"
+    "src": "/assets/details/experience/01-overview/01.mp4"
   },
   "/assets/details/experience/02-insights/02.mp4": {
-    "src": "/assets/details/experience/02-insights/02.mp4",
-    "webmSrc": "/assets/details/experience/02-insights/02.webm"
+    "src": "/assets/details/experience/02-insights/02.mp4"
   },
   "/assets/details/experience/04-flow/02.mp4": {
-    "src": "/assets/details/experience/04-flow/02.mp4",
-    "webmSrc": "/assets/details/experience/04-flow/02.webm"
+    "src": "/assets/details/experience/04-flow/02.mp4"
   },
   "/assets/details/experience/06-motion/02.mp4": {
-    "src": "/assets/details/experience/06-motion/02.mp4",
-    "webmSrc": "/assets/details/experience/06-motion/02.webm"
+    "src": "/assets/details/experience/06-motion/02.mp4"
   },
   "/assets/details/experience/06-motion/04.mp4": {
-    "src": "/assets/details/experience/06-motion/04.mp4",
-    "webmSrc": "/assets/details/experience/06-motion/04.webm"
+    "src": "/assets/details/experience/06-motion/04.mp4"
   },
   "/assets/details/ip/01-analysis/01.mp4": {
-    "src": "/assets/details/ip/01-analysis/01.mp4",
-    "webmSrc": "/assets/details/ip/01-analysis/01.webm"
+    "src": "/assets/details/ip/01-analysis/01.mp4"
   },
   "/assets/details/ip/04-assets/03.mp4": {
-    "src": "/assets/details/ip/04-assets/03.mp4",
-    "webmSrc": "/assets/details/ip/04-assets/03.webm"
+    "src": "/assets/details/ip/04-assets/03.mp4"
   },
   "/assets/details/ip/04-assets/06.mp4": {
-    "src": "/assets/details/ip/04-assets/06.mp4",
-    "webmSrc": "/assets/details/ip/04-assets/06.webm"
+    "src": "/assets/details/ip/04-assets/06.mp4"
   },
   "/assets/details/ip/05-review/03.mp4": {
-    "src": "/assets/details/ip/05-review/03.mp4",
-    "webmSrc": "/assets/details/ip/05-review/03.webm"
+    "src": "/assets/details/ip/05-review/03.mp4"
   },
   "/assets/details/ip/05-review/05.mp4": {
-    "src": "/assets/details/ip/05-review/05.mp4",
-    "webmSrc": "/assets/details/ip/05-review/05.webm"
+    "src": "/assets/details/ip/05-review/05.mp4"
   }
 } as const;

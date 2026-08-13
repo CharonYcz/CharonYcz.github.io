@@ -7,12 +7,17 @@ const hoverImageSelector = "img[data-hover-src]";
 function loadHoverImage(card: Element) {
   const image = card.querySelector<HTMLImageElement>(hoverImageSelector);
   if (!image?.dataset.hoverSrc) return;
+  const markHoverReady = () => {
+    void image.decode().catch(() => undefined).then(() => card.classList.add("project-card-hover-ready"));
+  };
+  image.addEventListener("load", markHoverReady, { once: true });
   card.querySelectorAll<HTMLElement>("source[data-hover-srcset]").forEach((source) => {
     if (source.dataset.hoverSrcset) source.setAttribute("srcset", source.dataset.hoverSrcset);
     delete source.dataset.hoverSrcset;
   });
   image.src = image.dataset.hoverSrc;
   delete image.dataset.hoverSrc;
+  if (image.complete && image.naturalWidth > 0) markHoverReady();
 }
 
 export function PortfolioInteractions() {
